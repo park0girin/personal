@@ -60,16 +60,16 @@ public class GameManager : MonoBehaviour
     public float gameTime;
     private void Update()
     {
-        UI_Text.text = ($"Life : {PlayerLife} / {PlayerLifeMax}\nBuff : {BuffCount} / 50");
+        UI_Text.text = ($"Life : {PlayerLife} / {PlayerLifeMax}\nBuff : {BuffCount} / 20");
         if (GameOver)
         {
             GameOverUI.SetActive(true);
         }
         else if(!BossBattle)
         {
-            if (BuffCount >= 50)
+            if (BuffCount >= 20)
             {
-                GameObject BOSS = pool.Get(4);
+                GameObject BOSS = pool.Get(Random.Range(4, 6));
                 BOSS.transform.position
                     = new Vector2(0f, 10f);
                 Debug.Log("BOSS");
@@ -213,7 +213,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < Random.Range(3, 6); i++)
         {
-            GameObject mob = pool.Get(5);
+            GameObject mob = pool.Get(6);
 
             mob.transform.position = pos;
             mob.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
@@ -224,14 +224,14 @@ public class GameManager : MonoBehaviour
     }
     public void MakeBuff(Vector2 pos)
     {
-        RandomBuff = Random.Range(6, 14);
+        RandomBuff = Random.Range(7, 15);
         GameObject Buff = pool.Get(RandomBuff);
         Buff.transform.position = pos;
     }
     public void RedBulletBoom(Vector2 pos)
     {
         Debug.Log("BOOM");
-        GameObject boom= pool.Get(14);
+        GameObject boom= pool.Get(15);
         boom.transform.position = pos;
     }
 }

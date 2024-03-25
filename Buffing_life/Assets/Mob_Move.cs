@@ -140,7 +140,7 @@ public class Mob_Move : MonoBehaviour
     }
     void BOSS()
     {
-        if (transform.position.y >= 7)
+        if (transform.position.y >= 3)
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
         }

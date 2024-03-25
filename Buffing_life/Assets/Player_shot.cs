@@ -21,9 +21,23 @@ public class Player_shot : MonoBehaviour
             bullet.SetActive(false);
         }
     }
-    void Update()
+    private void OnMouseDown()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        /*for (int i = 0; i < poolSize; i++)
+        {
+            GameObject b = bulletPool[i];
+            if (b.activeSelf == false)
+            {
+                b.SetActive(true);
+                b.transform.position = pos.transform.position;
+                break;
+            }
+        }*/
+    }
+    private void OnMouseDrag()
+    {
+        shotTime += Time.deltaTime;
+        if (shotTime >= GameManager.Instance.ShotInterval)
         {
             for (int i = 0; i < poolSize; i++)
             {
@@ -32,25 +46,8 @@ public class Player_shot : MonoBehaviour
                 {
                     b.SetActive(true);
                     b.transform.position = pos.transform.position;
+                    shotTime = 0;
                     break;
-                }
-            }
-        }
-        else if (Input.GetKey(KeyCode.F))
-        {
-            shotTime += Time.deltaTime;
-            if (shotTime >= GameManager.Instance.ShotInterval)
-            {
-                for (int i = 0; i < poolSize; i++)
-                {
-                    GameObject b = bulletPool[i];
-                    if (b.activeSelf == false)
-                    {
-                        b.SetActive(true);
-                        b.transform.position = pos.transform.position;
-                        shotTime = 0;
-                        break;
-                    }
                 }
             }
         }
