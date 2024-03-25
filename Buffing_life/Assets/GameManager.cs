@@ -43,7 +43,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI LV_text;
     public TextMeshProUGUI UI_Text;
     public TextMeshProUGUI Buff_Text;
+
+    // ป๓ลย
     public bool GameOver;
+    public bool Gameing;
 
     private void Awake()
     {
@@ -149,11 +152,13 @@ public class GameManager : MonoBehaviour
 
     public void GamePause()
     {
+        Gameing = false;
         Time.timeScale = 0f;
         P_BT.SetActive(true);
     }
     public void Gamecontinue()
     {
+        Gameing = true;
         Time.timeScale = 1f;
         P_BT.SetActive(false);
     }

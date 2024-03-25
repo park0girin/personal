@@ -26,16 +26,19 @@ public class Player_move : MonoBehaviour
 
     private void OnMouseDown()
     {
-        playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (GameManager.Instance.Gameing) playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
     private void OnMouseDrag()
     {
-        cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        diffPos = cursorPos - playerPos;
-        playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (GameManager.Instance.Gameing)
+        {
+            cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            diffPos = cursorPos - playerPos;
+            playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        player.transform.position = new Vector2(Mathf.Clamp(player.transform.position.x + diffPos.x, -2.8f, 2.8f),
-            (Mathf.Clamp(player.transform.position.y + diffPos.y, -4.0f, 1.0f)));
+            player.transform.position = new Vector2(Mathf.Clamp(player.transform.position.x + diffPos.x, -2.8f, 2.8f),
+                (Mathf.Clamp(player.transform.position.y + diffPos.y, -4.0f, 1.0f)));
+        }
     }
 
 }
