@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     public bool Penetration = false;
     public float BulletDamage = 1.0f;
     public bool RedBullet = false;
-    public float RedArea;
 
     //mob
     public float SpawnSpeed = 1.0f;
@@ -169,6 +168,7 @@ public class GameManager : MonoBehaviour
     }
     private void Reset()
     {
+        Level = 1;
         P_BT.SetActive(false);
         Freeze = false;
         FreezeSkillTime = 0;
@@ -185,7 +185,6 @@ public class GameManager : MonoBehaviour
         buffsQueue.Clear();
         buffCountDict = new Dictionary<string, int>();
         Buff_Text.text = ($"Buff : \n");
-        RedArea = 0.2f;
         Time.timeScale = 1.0f;
     }
     public void Boom(Vector2 pos)
