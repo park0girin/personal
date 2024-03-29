@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public poolManager pool;
     public GameObject GameOverUI;
     public GameObject P_BT;
+    public GameObject Black;
     public TextMeshPro testtext;
 
     //player
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
         UI_Text.text = ($"Life : {PlayerLife} / {PlayerLifeMax}\nBuff : {(Level - 1) * 20 + BuffCount} / 20");
         if (GameOver)
         {
+            Black.SetActive(true);
             GameOverUI.SetActive(true);
         }
         else if(!BossBattle)
@@ -149,12 +151,14 @@ public class GameManager : MonoBehaviour
         Gameing = false;
         Time.timeScale = 0f;
         P_BT.SetActive(true);
+        Black.SetActive(true);
     }
     public void Gamecontinue()
     {
         Gameing = true;
         Time.timeScale = 1f;
         P_BT.SetActive(false);
+        Black.SetActive(false);
     }
     public void Next()
     {
@@ -169,6 +173,7 @@ public class GameManager : MonoBehaviour
     private void Reset()
     {
         Level = 1;
+        Black.SetActive(false);
         P_BT.SetActive(false);
         Freeze = false;
         FreezeSkillTime = 0;
