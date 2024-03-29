@@ -20,7 +20,8 @@ public class Mob_Move : MonoBehaviour
         Green,
         Blue,
         White,
-        BOSS
+        BOSS_C,
+        BOSS_D
     }
     float Ran(float max, float min)
     {
@@ -29,11 +30,9 @@ public class Mob_Move : MonoBehaviour
     }
     private void OnEnable()
     {
-        if (mob==mobType.BOSS)
-        {
-            hp = GameManager.Instance.BOSS_hp;
-        }
-        else hp = hp_input;
+        hp = hp_input;
+        Debug.Log(hp);
+        hp *= GameManager.Instance.HpMultiplier;
         speed = Ran(speed_input + 1, speed_input - 1);
         specialSkill = false;
         skillTime = 0;
@@ -153,7 +152,6 @@ public class Mob_Move : MonoBehaviour
         }
         else if (hp <= 0)
         {
-            if (mob == mobType.BOSS) GameManager.Instance.StageClearUI.SetActive(true);
             specialSkill = false;
             Vector2 pos = transform.position;
             GameManager.Instance.MakeBuff(pos);
@@ -177,11 +175,12 @@ public class Mob_Move : MonoBehaviour
                     case mobType.White:
                         White();
                         break;
-                    case mobType.BOSS:
+                    case mobType.BOSS_C:
+                    case mobType.BOSS_D:
                         BOSS();
                         break;
                 }
-                if (GameManager.Instance.BossBattle && mob != mobType.BOSS)
+                if (GameManager.Instance.BossBattle && mob != mobType.BOSS_C && mob != mobType.BOSS_D)
                 {
                     gameObject.SetActive(false);
                     return;
@@ -189,8 +188,8 @@ public class Mob_Move : MonoBehaviour
             }
             else
             {
-                skillTime += Time.deltaTime;
-                if(skillTime > 2.0f)
+                GameManager.Instance.FreezeSkillTime += Time.deltaTime;
+                if(GameManager.Instance.FreezeSkillTime > 2.0f)
                 {
                     GameManager.Instance.Freeze = false;
                 }

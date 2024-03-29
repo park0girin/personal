@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public poolManager pool;
     public GameObject GameOverUI;
-    public GameObject StageClearUI;
     public GameObject P_BT;
+    public TextMeshPro testtext;
 
     //player
     public GameObject Player;
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     //mob
     public float SpawnSpeed = 1.0f;
     public bool BossBattle;
-    public float BOSS_hp;
+    public float HpMultiplier = 1.1f ;
     int randomMob;
 
     // buff
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public Queue<string> buffsQueue = new Queue<string>();
     Dictionary<string, int> buffCountDict = new Dictionary<string, int>();
     public bool Freeze;
+    public float FreezeSkillTime;
 
     // UI
     public float Level;
@@ -63,90 +64,84 @@ public class GameManager : MonoBehaviour
     public float gameTime;
     private void Update()
     {
-        UI_Text.text = ($"Life : {PlayerLife} / {PlayerLifeMax}\nBuff : {BuffCount} / 20");
+        testtext.text = FreezeSkillTime.ToString();
+        UI_Text.text = ($"Life : {PlayerLife} / {PlayerLifeMax}\nBuff : {(Level - 1) * 20 + BuffCount} / 20");
         if (GameOver)
         {
             GameOverUI.SetActive(true);
         }
         else if(!BossBattle)
         {
-            if (BuffCount >= 20)
+            if (Level%5 == 0)
             {
                 GameObject BOSS = pool.Get(Random.Range(4, 6));
                 BOSS.transform.position
-                    = new Vector2(0f, 10f);
-                Debug.Log("BOSS");
+                    = new Vector2(0f, 7f);
+                Debug.Log("BossBattle");
                 BossBattle = true;
             }
             else
             {
-                gameTime += Time.deltaTime;
-                if (gameTime >= (2.5 / SpawnSpeed))
+                if (BuffCount >= 20)
                 {
-                    SpawnSpeed += Level / 50;
-                    randomMob = Random.Range(0, 4);
-                    GameObject Mob = pool.Get(randomMob);
-                    Mob.transform.position
-                        = new Vector2(Random.Range(-2f, 2f), 6f);
-                    gameTime = 0;
+                    BuffCount = 0;
+                    Debug.Log("Level up");
+                    Level += 1;
                 }
-                if (BuffCount != 0)
+                else
                 {
-                    while (buffsQueue.Count > 0)
+                    gameTime += Time.deltaTime;
+                    if (gameTime >= (2.5 / SpawnSpeed))
                     {
-                        string buffName = buffsQueue.Dequeue();
+                        SpawnSpeed += Level / 50;
+                        randomMob = Random.Range(0, 4);
+                        GameObject Mob = pool.Get(randomMob);
+                        Mob.transform.position
+                            = new Vector2(Random.Range(-2f, 2f), 6f);
+                        gameTime = 0;
+                    }
+                    if (BuffCount != 0)
+                    {
+                        while (buffsQueue.Count > 0)
+                        {
+                            string buffName = buffsQueue.Dequeue();
 
-                        if (!buffCountDict.ContainsKey(buffName))
-                        {
-                            buffCountDict[buffName] = 1;
+                            if (!buffCountDict.ContainsKey(buffName))
+                            {
+                                buffCountDict[buffName] = 1;
+                            }
+                            else
+                            {
+                                buffCountDict[buffName]++;
+                            }
                         }
-                        else
+
+                        Buff_Text.text = "Buff : \n";
+                        foreach (var kvp in buffCountDict)
                         {
-                            buffCountDict[buffName]++;
+                            string buffInfo = $"{kvp.Key} x{kvp.Value}\n";
+                            Buff_Text.text += buffInfo;
                         }
                     }
 
-                    Buff_Text.text = "Buff : \n";
-                    foreach (var kvp in buffCountDict)
-                    {
-                        string buffInfo = $"{kvp.Key} x{kvp.Value}\n";
-                        Buff_Text.text += buffInfo;
-                    }
                 }
 
             }
 
-            if (Level <= 5)
+            if (Level/5 == 0)
+            {
+                LV_text.text = ("LV " + Level.ToString());
+                LV_text.color = new Color(1.0f, 0.5f, 0.0f);
+            }
+            else
             {
                 LV_text.text = ("LV " + Level.ToString()); 
                 LV_text.color = Color.white;
             }
-            else
-            {
-                LV_text.text = ("LV 5+");
-                LV_text.color = new Color(1.0f, 0.5f, 0.0f);
-            }
         }
         else if (BossBattle)
         {
-            switch (Level)
-            {
-                case 1:
-                    //??
-                    break;
-                case 2:
-                    //??
-                    break;
-                case 3:
-                    //??
-                    break;
-                case 4:
-                    //??
-                    break;
-                case 5:
-                    //??
-                    break;
-            }
+            
         }
     }
 
@@ -164,8 +159,7 @@ public class GameManager : MonoBehaviour
     }
     public void Next()
     {
-        Level++;
-        Reset();
+        Level += 1;
         Gamecontinue();
     }
     public void Re()
@@ -175,39 +169,19 @@ public class GameManager : MonoBehaviour
     }
     private void Reset()
     {
-        switch (Level)
-        {
-            case 1:
-                BOSS_hp = 15.0f;
-                break;
-            case 2:
-                BOSS_hp = 30.0f;
-                break;
-            case 3:
-                BOSS_hp = 50.0f;
-                break;
-            case 4:
-                BOSS_hp = 90.0f;
-                break;
-            case 5:
-                BOSS_hp = 200.0f;
-                break;
-            default:
-                BOSS_hp += BOSS_hp / 2;
-                break;
-        }
         P_BT.SetActive(false);
         Freeze = false;
+        FreezeSkillTime = 0;
         PlayerLifeMax = 3;
         PlayerLife = 3;
         Player.SetActive(true);
+        Gameing = true;
         GameOver = false;
         BulletDamage = 1;
         BuffCount = 0;
         BossBattle = false;
         gameTime = 0;
         GameOverUI.SetActive(false);
-        StageClearUI.SetActive(false);
         buffsQueue.Clear();
         buffCountDict = new Dictionary<string, int>();
         Buff_Text.text = ($"Buff : \n");
@@ -229,14 +203,8 @@ public class GameManager : MonoBehaviour
     }
     public void MakeBuff(Vector2 pos)
     {
-        RandomBuff = Random.Range(7, 15);
+        RandomBuff = Random.Range(7, 11);
         GameObject Buff = pool.Get(RandomBuff);
         Buff.transform.position = pos;
-    }
-    public void RedBulletBoom(Vector2 pos)
-    {
-        Debug.Log("BOOM");
-        GameObject boom= pool.Get(15);
-        boom.transform.position = pos;
     }
 }

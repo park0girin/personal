@@ -7,42 +7,26 @@ public class Buff : MonoBehaviour
     public BuffType Buff_name;
     public enum BuffType
     {
-        RedExplosion,
-        GreenInvincibility,
-        BlueFreeze,
+        Freeze,
         Heal,
-        MaxHealth,
-        DamageIncrease,
-        BulletIncrease,
-        Penetration
+        DamageUp,
+        specialAttackGauge
     }
     private void Update()
     {
         switch (Buff_name)
         {
-            case BuffType.RedExplosion:
-                // 폭발 효과 구현
-                break;
-            case BuffType.GreenInvincibility:
-                // 무적 효과 구현
-                break;
-            case BuffType.BlueFreeze:
+            case BuffType.Freeze:
                 // 정지 효과 구현
                 break;
             case BuffType.Heal:
                 // 체력 회복 효과 구현
                 break;
-            case BuffType.MaxHealth:
-                // 최대 체력 증가 효과 구현
-                break;
-            case BuffType.DamageIncrease:
+            case BuffType.DamageUp:
                 // 데미지 증가 효과 구현
                 break;
-            case BuffType.BulletIncrease:
-                // 탄막 수 증가 효과 구현
-                break;
-            case BuffType.Penetration:
-                // 관통 효과 구현
+            case BuffType.specialAttackGauge:
+                // 특수 공격 게이지 증가 구현
                 break;
         }
         transform.Translate(Vector2.down * 2f * Time.deltaTime);
@@ -58,14 +42,8 @@ public class Buff : MonoBehaviour
             GameManager.Instance.BuffCount++;
             switch (Buff_name)
             {
-                case BuffType.RedExplosion:
-                    GameManager.Instance.RedBullet = true;
-                    GameManager.Instance.RedArea += 0.05f;
-                    break;
-                case BuffType.GreenInvincibility:
-                    // 무적 효과 구현
-                    break;
-                case BuffType.BlueFreeze:
+                case BuffType.Freeze:
+                    GameManager.Instance.FreezeSkillTime = 0;
                     GameManager.Instance.Freeze = true;
                     break;
                 case BuffType.Heal:
@@ -74,17 +52,11 @@ public class Buff : MonoBehaviour
                         GameManager.Instance.PlayerLife++;
                     }
                     break;
-                case BuffType.MaxHealth:
-                    GameManager.Instance.PlayerLifeMax++;
-                    break;
-                case BuffType.DamageIncrease:
+                case BuffType.DamageUp:
                     GameManager.Instance.BulletDamage += 0.5f;
                     break;
-                case BuffType.BulletIncrease:
-                    // 탄막 수 증가 효과 구현
-                    break;
-                case BuffType.Penetration:
-                    GameManager.Instance.Penetration = true;
+                case BuffType.specialAttackGauge:
+                    // 특수 공격 게이지 증가 구현
                     break;
             }
             Debug.Log(Buff_name);

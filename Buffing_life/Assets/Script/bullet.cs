@@ -25,17 +25,4 @@ public class bullet : MonoBehaviour
     {
         transform.Translate(Vector2.up * bulletshot * Time.deltaTime);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (ChangeScript != null)
-        {
-            if (GameManager.Instance.RedBullet && collision.CompareTag("Mob"))
-            {
-                if (Red == 0)
-                {
-                    GameManager.Instance.RedBulletBoom(transform.position);
-                }
-            }
-        }
-    }
 }
