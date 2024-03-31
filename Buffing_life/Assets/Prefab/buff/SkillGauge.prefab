@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5494145875080611431}
   - component: {fileID: -5814187705100049365}
   m_Layer: 0
-  m_Name: SpecialAttackGauge
+  m_Name: SkillGauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

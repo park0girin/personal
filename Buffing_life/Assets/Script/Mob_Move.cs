@@ -31,7 +31,6 @@ public class Mob_Move : MonoBehaviour
     private void OnEnable()
     {
         hp = hp_input;
-        Debug.Log(hp);
         hp *= GameManager.Instance.HpMultiplier;
         speed = Ran(speed_input + 1, speed_input - 1);
         specialSkill = false;
@@ -152,6 +151,12 @@ public class Mob_Move : MonoBehaviour
         }
         else if (hp <= 0)
         {
+            if (mob == mobType.BOSS_C || mob == mobType.BOSS_D)
+            {
+                GameManager.Instance.BossBattle = false;
+                GameManager.Instance.Level++;
+                GameManager.Instance.Gamecontinue();
+            }
             specialSkill = false;
             Vector2 pos = transform.position;
             GameManager.Instance.MakeBuff(pos);

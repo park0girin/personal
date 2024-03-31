@@ -38,12 +38,15 @@ public class GameManager : MonoBehaviour
     Dictionary<string, int> buffCountDict = new Dictionary<string, int>();
     public bool Freeze;
     public float FreezeSkillTime;
+    public int SkillCount;
 
     // UI
     public float Level;
     public TextMeshProUGUI LV_text;
     public TextMeshProUGUI UI_Text;
     public TextMeshProUGUI Buff_Text;
+    public PlayerUI_con HPGaugeBar;
+    public PlayerUI_con SkillGaugeBar;
 
     // ป๓ลย
     public bool GameOver;
@@ -64,85 +67,88 @@ public class GameManager : MonoBehaviour
     public float gameTime;
     private void Update()
     {
-        testtext.text = FreezeSkillTime.ToString();
         UI_Text.text = ($"Life : {PlayerLife} / {PlayerLifeMax}\nBuff : {(Level - 1) * 20 + BuffCount} / 20");
         if (GameOver)
         {
             Black.SetActive(true);
+            HPGaugeBar.ChangeGaugeValue(0);
             GameOverUI.SetActive(true);
         }
-        else if(!BossBattle)
+        else
         {
-            if (Level%5 == 0)
+            if (!BossBattle)
             {
-                GameObject BOSS = pool.Get(Random.Range(4, 6));
-                BOSS.transform.position
-                    = new Vector2(0f, 7f);
-                Debug.Log("BossBattle");
-                BossBattle = true;
-            }
-            else
-            {
-                if (BuffCount >= 20)
+                if (Level % 5 == 0)
                 {
-                    BuffCount = 0;
-                    Debug.Log("Level up");
-                    Level += 1;
+                    GameObject BOSS = pool.Get(Random.Range(4, 6));
+                    BOSS.transform.position
+                        = new Vector2(0f, 7f);
+                    Debug.Log("BossBattle");
+                    BossBattle = true;
                 }
                 else
                 {
-                    gameTime += Time.deltaTime;
-                    if (gameTime >= (2.5 / SpawnSpeed))
+                    if (BuffCount >= 20)
                     {
-                        SpawnSpeed += Level / 50;
-                        randomMob = Random.Range(0, 4);
-                        GameObject Mob = pool.Get(randomMob);
-                        Mob.transform.position
-                            = new Vector2(Random.Range(-2f, 2f), 6f);
-                        gameTime = 0;
+                        BuffCount = 0;
+                        Debug.Log("Level up");
+                        Level += 1;
                     }
-                    if (BuffCount != 0)
+                    else
                     {
-                        while (buffsQueue.Count > 0)
+                        gameTime += Time.deltaTime;
+                        if (gameTime >= (2.5 / SpawnSpeed))
                         {
-                            string buffName = buffsQueue.Dequeue();
+                            SpawnSpeed += Level / 50;
+                            randomMob = Random.Range(0, 4);
+                            GameObject Mob = pool.Get(randomMob);
+                            Mob.transform.position
+                                = new Vector2(Random.Range(-2f, 2f), 6f);
+                            gameTime = 0;
+                        }
+                        if (BuffCount != 0)
+                        {
+                            while (buffsQueue.Count > 0)
+                            {
+                                string buffName = buffsQueue.Dequeue();
 
-                            if (!buffCountDict.ContainsKey(buffName))
-                            {
-                                buffCountDict[buffName] = 1;
+                                if (!buffCountDict.ContainsKey(buffName))
+                                {
+                                    buffCountDict[buffName] = 1;
+                                }
+                                else
+                                {
+                                    buffCountDict[buffName]++;
+                                }
                             }
-                            else
+
+                            Buff_Text.text = "Buff : \n";
+                            foreach (var kvp in buffCountDict)
                             {
-                                buffCountDict[buffName]++;
+                                string buffInfo = $"{kvp.Key} x{kvp.Value}\n";
+                                Buff_Text.text += buffInfo;
                             }
                         }
 
-                        Buff_Text.text = "Buff : \n";
-                        foreach (var kvp in buffCountDict)
-                        {
-                            string buffInfo = $"{kvp.Key} x{kvp.Value}\n";
-                            Buff_Text.text += buffInfo;
-                        }
                     }
 
                 }
 
+                if (Level / 5 == 0)
+                {
+                    LV_text.text = ("LV " + Level.ToString());
+                    LV_text.color = new Color(1.0f, 0.5f, 0.0f);
+                }
+                else
+                {
+                    LV_text.text = ("LV " + Level.ToString());
+                    LV_text.color = Color.white;
+                }
             }
+            else if (BossBattle)
+            {
 
-            if (Level/5 == 0)
-            {
-                LV_text.text = ("LV " + Level.ToString());
-                LV_text.color = new Color(1.0f, 0.5f, 0.0f);
             }
-            else
-            {
-                LV_text.text = ("LV " + Level.ToString()); 
-                LV_text.color = Color.white;
-            }
-        }
-        else if (BossBattle)
-        {
-            
         }
     }
 
@@ -177,9 +183,12 @@ public class GameManager : MonoBehaviour
         P_BT.SetActive(false);
         Freeze = false;
         FreezeSkillTime = 0;
-        PlayerLifeMax = 3;
-        PlayerLife = 3;
+        PlayerLife = PlayerLifeMax;
+        SkillCount = 0;
         Player.SetActive(true);
+        HPGaugeBar.maxGaugeValue = PlayerLifeMax;
+        HPGaugeBar.ChangeGaugeValue(PlayerLifeMax);
+        SkillGaugeBar.ChangeGaugeValue(0);
         Gameing = true;
         GameOver = false;
         BulletDamage = 1;

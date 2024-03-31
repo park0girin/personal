@@ -10,7 +10,7 @@ public class Buff : MonoBehaviour
         Freeze,
         Heal,
         DamageUp,
-        specialAttackGauge
+        SkillGauge
     }
     private void Update()
     {
@@ -25,7 +25,7 @@ public class Buff : MonoBehaviour
             case BuffType.DamageUp:
                 // 데미지 증가 효과 구현
                 break;
-            case BuffType.specialAttackGauge:
+            case BuffType.SkillGauge:
                 // 특수 공격 게이지 증가 구현
                 break;
         }
@@ -55,8 +55,8 @@ public class Buff : MonoBehaviour
                 case BuffType.DamageUp:
                     GameManager.Instance.BulletDamage += 0.5f;
                     break;
-                case BuffType.specialAttackGauge:
-                    // 특수 공격 게이지 증가 구현
+                case BuffType.SkillGauge:
+                    GameManager.Instance.SkillCount++;
                     break;
             }
             Debug.Log(Buff_name);

@@ -1,14 +1,17 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class player_con : MonoBehaviour
+public class Player_HP : MonoBehaviour
 {
     public float speed = 3.0f;
-    
+    public GameObject HPBar;
+    public GameObject SkillBar;
 
     private void OnEnable()
     {
         transform.position = new Vector2(0, -3.0f);
+        HPBar.SetActive(true);
+        SkillBar.SetActive(true);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,5 +24,7 @@ public class player_con : MonoBehaviour
         {
             GameManager.Instance.PlayerLife -= 2;
         }
+        GameManager.Instance.HPGaugeBar.ChangeGaugeValue(GameManager.Instance.PlayerLife);
+        GameManager.Instance.SkillGaugeBar.ChangeGaugeValue(GameManager.Instance.SkillCount);
     }
 }
