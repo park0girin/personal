@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Mob_Move : MonoBehaviour
 {
+    public GameManager GameManager;
     public mobType mob;
     public float speed_input;
     float speed;
@@ -30,8 +31,9 @@ public class Mob_Move : MonoBehaviour
     }
     private void OnEnable()
     {
+        GameManager = FindObjectOfType<GameManager>();
         hp = hp_input;
-        hp *= GameManager.Instance.HpMultiplier;
+        hp *= GameManager.HpMultiplier;
         speed = Ran(speed_input + 1, speed_input - 1);
         specialSkill = false;
         skillTime = 0;
@@ -66,14 +68,14 @@ public class Mob_Move : MonoBehaviour
         if (transform.position.y < 4)
         {
             skillTime += Time.deltaTime;
-            if (skillTime > Ran(8, 4))
+            if (skillTime > Ran(8, 4) / GameManager.SpawnSpeed)
             {
                 specialSkill = true;
             }
             if (specialSkill)
             {
                 Vector2 pos = transform.position;
-                GameManager.Instance.Boom(pos);
+                GameManager.Boom(pos);
                 gameObject.SetActive(false);
             }
         }
@@ -145,7 +147,7 @@ public class Mob_Move : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.Instance.GameOver)
+        if (GameManager.GameOver)
         {
             gameObject.SetActive(false);
         }
@@ -153,18 +155,18 @@ public class Mob_Move : MonoBehaviour
         {
             if (mob == mobType.BOSS_C || mob == mobType.BOSS_D)
             {
-                GameManager.Instance.BossBattle = false;
-                GameManager.Instance.Level++;
-                GameManager.Instance.Gamecontinue();
+                GameManager.BossBattle = false;
+                GameManager.Level++;
+                GameManager.Gamecontinue();
             }
             specialSkill = false;
             Vector2 pos = transform.position;
-            GameManager.Instance.MakeBuff(pos);
+            GameManager.MakeBuff(pos);
             gameObject.SetActive(false);
         }
         else
         {
-            if (!GameManager.Instance.Freeze)
+            if (!GameManager.Freeze)
             {
                 switch (mob)
                 {
@@ -185,7 +187,7 @@ public class Mob_Move : MonoBehaviour
                         BOSS();
                         break;
                 }
-                if (GameManager.Instance.BossBattle && mob != mobType.BOSS_C && mob != mobType.BOSS_D)
+                if (GameManager.BossBattle && mob != mobType.BOSS_C && mob != mobType.BOSS_D)
                 {
                     gameObject.SetActive(false);
                     return;
@@ -193,10 +195,10 @@ public class Mob_Move : MonoBehaviour
             }
             else
             {
-                GameManager.Instance.FreezeSkillTime += Time.deltaTime;
-                if(GameManager.Instance.FreezeSkillTime > 2.0f)
+                GameManager.FreezeSkillTime += Time.deltaTime;
+                if(GameManager.FreezeSkillTime > 2.0f)
                 {
-                    GameManager.Instance.Freeze = false;
+                    GameManager.Freeze = false;
                 }
             }
         }
@@ -213,11 +215,11 @@ public class Mob_Move : MonoBehaviour
         }
         if (collision.CompareTag("bullet"))
         {
-            if (!GameManager.Instance.Penetration)
+            if (!GameManager.Penetration)
             {
                 collision.gameObject.SetActive(false);
             }
-            if(!cannotBeHit) hp -= GameManager.Instance.BulletDamage;
+            if(!cannotBeHit) hp -= GameManager.BulletDamage;
         }
     }
 }

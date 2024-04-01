@@ -482,78 +482,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &566954825
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 566954827}
-  - component: {fileID: 566954826}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &566954826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 566954825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61bc2cac066ca4c4286dd0394bfef655, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pool: {fileID: 0}
-  GameOverUI: {fileID: 0}
-  P_BT: {fileID: 0}
-  Black: {fileID: 0}
-  testtext: {fileID: 0}
-  Player: {fileID: 0}
-  ShotInterval: 0.5
-  PlayerLifeMax: 3
-  PlayerLife: 3
-  Penetration: 0
-  BulletDamage: 1
-  RedBullet: 0
-  SpawnSpeed: 1
-  BossBattle: 0
-  HpMultiplier: 1.1
-  BuffCount: 0
-  Freeze: 0
-  FreezeSkillTime: 0
-  SkillCount: 0
-  Level: 1
-  LV_text: {fileID: 0}
-  UI_Text: {fileID: 0}
-  Buff_Text: {fileID: 0}
-  HPGaugeBar: {fileID: 0}
-  SkillGaugeBar: {fileID: 0}
-  GameOver: 0
-  Gameing: 1
-  gameTime: 0
---- !u!4 &566954827
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 566954825}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &632246166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,9 +946,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1546508876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e848b1d8ec6ddeb43a287c9960a9a4c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 12d95b29f6721f34498b2eabd5e7cffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShotInterval: 0.5
+  PlayerLifeMax: 3
+  BulletDamage: 1
 --- !u!4 &1546508878
 Transform:
   m_ObjectHideFlags: 0
@@ -1312,4 +1243,3 @@ SceneRoots:
   - {fileID: 1026331002}
   - {fileID: 1546508878}
   - {fileID: 1482294557}
-  - {fileID: 566954827}

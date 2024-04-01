@@ -5,6 +5,7 @@ using static UnityEditor.PlayerSettings;
 
 public class Player_shot : MonoBehaviour
 {
+    public GameManager GameManager;
     public GameObject bulletobj;
     public int poolSize = 10;
     GameObject[] bulletPool;
@@ -12,6 +13,7 @@ public class Player_shot : MonoBehaviour
     float shotTime;
     void Start()
     {
+        GameManager = FindObjectOfType<GameManager>(); // GameManager Ã£±â
         bulletPool = new GameObject[poolSize];
 
         for (int i = 0; i < poolSize; i++)
@@ -37,7 +39,7 @@ public class Player_shot : MonoBehaviour
     private void OnMouseDrag()
     {
         shotTime += Time.deltaTime;
-        if (shotTime >= GameManager.Instance.ShotInterval)
+        if (shotTime >= ScenesManager.Instance.ShotInterval)
         {
             for (int i = 0; i < poolSize; i++)
             {

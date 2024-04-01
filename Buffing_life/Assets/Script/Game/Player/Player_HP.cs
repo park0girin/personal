@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Player_HP : MonoBehaviour
 {
+    public GameManager GameManager;
     public float speed = 3.0f;
     public GameObject HPBar;
     public GameObject SkillBar;
@@ -18,13 +19,13 @@ public class Player_HP : MonoBehaviour
         if (collision.CompareTag("Mob"))
         {
             collision.gameObject.SetActive(false);
-            GameManager.Instance.PlayerLife -= 1;
+            GameManager.PlayerLife -= 1;
         }
         if (collision.CompareTag("BOSS"))
         {
-            GameManager.Instance.PlayerLife -= 2;
+            GameManager.PlayerLife -= 2;
         }
-        GameManager.Instance.HPGaugeBar.ChangeGaugeValue(GameManager.Instance.PlayerLife);
-        GameManager.Instance.SkillGaugeBar.ChangeGaugeValue(GameManager.Instance.SkillCount);
+        GameManager.HPGaugeBar.ChangeGaugeValue(GameManager.PlayerLife);
+        GameManager.SkillGaugeBar.ChangeGaugeValue(GameManager.SkillCount);
     }
 }

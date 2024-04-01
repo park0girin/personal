@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class PlayerUI_con : MonoBehaviour
 {
+    public GameManager GameManager;
     public Image gaugeImage; // 게이지 바 이미지
     public Transform player; // 플레이어 Transform
 
@@ -16,7 +17,7 @@ public class PlayerUI_con : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.GameOver)
+        if (!GameManager.GameOver)
         {
             // 플레이어의 위치를 화면 좌표로 변환합니다.
             Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(player.position);

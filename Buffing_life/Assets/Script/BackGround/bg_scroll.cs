@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class bg_scroll : MonoBehaviour
 {
+    public GameManager GameManager;
     public float scrollSpeed;
     float targetOffset;
     Renderer rendererer;
@@ -15,7 +16,7 @@ public class bg_scroll : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.BossBattle)
+        if (!GameManager.BossBattle)
         {
             targetOffset += Time.deltaTime * scrollSpeed;
             rendererer.material.mainTextureOffset

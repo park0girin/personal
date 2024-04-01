@@ -4,33 +4,34 @@ using UnityEngine;
 
 public class Player_move : MonoBehaviour
 {
+    public GameManager GameManager;
     private Vector2 playerPos;
     private Vector2 diffPos;
     private Vector2 cursorPos;
     public GameObject player;
     private void Update()
     {
-        if (GameManager.Instance.GameOver)
+        if (GameManager.GameOver)
         {
             player.SetActive(false);
-            GameManager.Instance.GameOverUI.SetActive(true);
+            GameManager.GameOverUI.SetActive(true);
         }
         else
         {
-            if (GameManager.Instance.PlayerLife <= 0)
+            if (GameManager.PlayerLife <= 0)
             {
-                GameManager.Instance.GameOver = true;
+                GameManager.GameOver = true;
             }
         }
     }
 
     private void OnMouseDown()
     {
-        if (GameManager.Instance.Gameing) playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (GameManager.Gameing) playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
     private void OnMouseDrag()
     {
-        if (GameManager.Instance.Gameing)
+        if (GameManager.Gameing)
         {
             cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             diffPos = cursorPos - playerPos;

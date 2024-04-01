@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Buff : MonoBehaviour
 {
+    public GameManager GameManager;
     public BuffType Buff_name;
     public enum BuffType
     {
@@ -11,6 +12,10 @@ public class Buff : MonoBehaviour
         Heal,
         DamageUp,
         SkillGauge
+    }
+    private void OnEnable()
+    {
+        GameManager = FindObjectOfType<GameManager>();
     }
     private void Update()
     {
@@ -39,31 +44,31 @@ public class Buff : MonoBehaviour
     {
         if (collision.gameObject.name == "player")
         {
-            GameManager.Instance.BuffCount++;
+            GameManager.BuffCount++;
             switch (Buff_name)
             {
                 case BuffType.Freeze:
-                    GameManager.Instance.FreezeSkillTime = 0;
-                    GameManager.Instance.Freeze = true;
+                    GameManager.FreezeSkillTime = 0;
+                    GameManager.Freeze = true;
                     break;
                 case BuffType.Heal:
-                    if (GameManager.Instance.PlayerLifeMax > GameManager.Instance.PlayerLife)
+                    if (ScenesManager.Instance.PlayerLifeMax > GameManager.PlayerLife)
                     {
-                        GameManager.Instance.PlayerLife++;
+                        GameManager.PlayerLife++;
                     }
                     break;
                 case BuffType.DamageUp:
-                    GameManager.Instance.BulletDamage += 0.5f;
+                    GameManager.BulletDamage += 0.5f;
                     break;
                 case BuffType.SkillGauge:
-                    GameManager.Instance.SkillCount++;
+                    GameManager.SkillCount++;
                     break;
             }
             Debug.Log(Buff_name);
 
-            if (GameManager.Instance.buffsQueue.Count < 50)
+            if (GameManager.buffsQueue.Count < 50)
             {
-                GameManager.Instance.buffsQueue.Enqueue(Buff_name.ToString());
+                GameManager.buffsQueue.Enqueue(Buff_name.ToString());
             }
             gameObject.SetActive(false);
         }

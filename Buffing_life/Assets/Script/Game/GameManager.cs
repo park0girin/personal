@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
     public poolManager pool;
     public GameObject GameOverUI;
     public GameObject P_BT;
@@ -16,13 +15,11 @@ public class GameManager : MonoBehaviour
 
     //player
     public GameObject Player;
-    public float ShotInterval = 0.5f;
-    public int PlayerLifeMax = 3;
     public int PlayerLife = 3;
 
     //bullet
+    public float BulletDamage;
     public bool Penetration = false;
-    public float BulletDamage = 1.0f;
     public bool RedBullet = false;
 
     //mob
@@ -52,14 +49,7 @@ public class GameManager : MonoBehaviour
     public bool GameOver;
     public bool Gameing;
 
-    private void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
+    private void OnEnable()
     {
         Reset();
     }
@@ -67,7 +57,7 @@ public class GameManager : MonoBehaviour
     public float gameTime;
     private void Update()
     {
-        UI_Text.text = ($"Life : {PlayerLife} / {PlayerLifeMax}\nBuff : {(Level - 1) * 20 + BuffCount} / 20");
+        UI_Text.text = ($"Life : {PlayerLife} / {ScenesManager.Instance.PlayerLifeMax}\nBuff : {(Level - 1) * 20 + BuffCount} / 20");
         if (GameOver)
         {
             Black.SetActive(true);
@@ -183,15 +173,15 @@ public class GameManager : MonoBehaviour
         P_BT.SetActive(false);
         Freeze = false;
         FreezeSkillTime = 0;
-        PlayerLife = PlayerLifeMax;
+        PlayerLife = ScenesManager.Instance.PlayerLifeMax;
         SkillCount = 0;
         Player.SetActive(true);
-        HPGaugeBar.maxGaugeValue = PlayerLifeMax;
-        HPGaugeBar.ChangeGaugeValue(PlayerLifeMax);
+        HPGaugeBar.maxGaugeValue = ScenesManager.Instance.PlayerLifeMax;
+        HPGaugeBar.ChangeGaugeValue(ScenesManager.Instance.PlayerLifeMax);
         SkillGaugeBar.ChangeGaugeValue(0);
         Gameing = true;
         GameOver = false;
-        BulletDamage = 1;
+        BulletDamage = ScenesManager.Instance.BulletDamage;
         BuffCount = 0;
         BossBattle = false;
         gameTime = 0;
