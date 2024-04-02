@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7777364692001895765}
   - component: {fileID: -8012173464495356402}
   - component: {fileID: -2808551264030751599}
-  - component: {fileID: 6997149939593120717}
+  - component: {fileID: 4395884532484398384}
   m_Layer: 0
   m_Name: bullet
   m_TagString: bullet
@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletshot: 6
-  ChangeScript: {fileID: 0}
 --- !u!50 &-8012173464495356402
 Rigidbody2D:
   serializedVersion: 4
@@ -141,8 +140,8 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_SortAtRoot: 0
---- !u!61 &6997149939593120717
-BoxCollider2D:
+--- !u!60 &4395884532484398384
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -173,7 +172,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0008594766, y: 0.00988394}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -183,6 +182,9 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.07264727, y: 0.31225193}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.12807253, y: -0.07944664}
+      - {x: -0.005309399, y: 0.19813791}
+      - {x: 0.12554123, y: -0.07470554}
+  m_UseDelaunayMesh: 0

@@ -41,6 +41,10 @@ public class Mob_Move : MonoBehaviour
         {
             ChangeScript = GetComponent<sprite_change>();
         }
+        else if(mob == mobType.BOSS_C)
+        {
+            
+        }
     }
     void Green()
     {

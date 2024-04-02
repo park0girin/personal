@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
                         gameTime += Time.deltaTime;
                         if (gameTime >= (2.5 / SpawnSpeed))
                         {
-                            SpawnSpeed += Level / 50;
+                            SpawnSpeed += Level / 75;
                             randomMob = Random.Range(0, 4);
                             GameObject Mob = pool.Get(randomMob);
                             Mob.transform.position
@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour
         GameOver = false;
         BulletDamage = ScenesManager.Instance.BulletDamage;
         BuffCount = 0;
+        SpawnSpeed = 1; 
         BossBattle = false;
         gameTime = 0;
         GameOverUI.SetActive(false);

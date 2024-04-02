@@ -10,7 +10,7 @@ public class Player_HP : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.position = new Vector2(0, -3.0f);
+        transform.position = new Vector2(0, -2.6f);
         HPBar.SetActive(true);
         SkillBar.SetActive(true);
     }
