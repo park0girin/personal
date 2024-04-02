@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class Back_Box : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameManager GameManager;
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (GameManager.GameOver) collision.gameObject.SetActive(false);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

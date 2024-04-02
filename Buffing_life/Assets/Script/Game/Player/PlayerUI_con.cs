@@ -14,7 +14,10 @@ public class PlayerUI_con : MonoBehaviour
     // 게이지 바의 현재 값
     public float currentValue;
 
-
+    private void OnEnable()
+    {
+        if (this.gameObject.name == "Skill_Bar") maxGaugeValue = GameManager.SkillCountMax;
+    }
     void Update()
     {
         if (!GameManager.GameOver)

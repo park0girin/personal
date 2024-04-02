@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     Dictionary<string, int> buffCountDict = new Dictionary<string, int>();
     public bool Freeze;
     public float FreezeSkillTime;
+    public float SkillCountMax;
     public int SkillCount;
 
     // UI
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI Buff_Text;
     public PlayerUI_con HPGaugeBar;
     public PlayerUI_con SkillGaugeBar;
+    public Button myButton;
 
     // 상태
     public bool GameOver;
@@ -134,6 +136,11 @@ public class GameManager : MonoBehaviour
                     LV_text.text = ("LV " + Level.ToString());
                     LV_text.color = new Color(0.7f, 1.0f, 0.5f);
                 }
+
+                if (SkillCount >= SkillCountMax)
+                {
+                    ActivateButton();
+                }
             }
             else if (BossBattle)
             {
@@ -174,11 +181,10 @@ public class GameManager : MonoBehaviour
         Freeze = false;
         FreezeSkillTime = 0;
         PlayerLife = ScenesManager.Instance.PlayerLifeMax;
-        SkillCount = 0;
         Player.SetActive(true);
         HPGaugeBar.maxGaugeValue = ScenesManager.Instance.PlayerLifeMax;
         HPGaugeBar.ChangeGaugeValue(ScenesManager.Instance.PlayerLifeMax);
-        SkillGaugeBar.ChangeGaugeValue(0);
+        DeactivateButton();
         Gameing = true;
         GameOver = false;
         BulletDamage = ScenesManager.Instance.BulletDamage;
@@ -209,5 +215,19 @@ public class GameManager : MonoBehaviour
         RandomBuff = Random.Range(7, 11);
         GameObject Buff = pool.Get(RandomBuff);
         Buff.transform.position = pos;
+    }
+    public void ActivateButton()
+    {
+        myButton.interactable = true; // 버튼을 활성화합니다.
+        myButton.image.color = new Color(0.3f, 0.9f, 0.5f);
+    }
+
+    // 버튼 비활성화 함수
+    public void DeactivateButton()
+    {
+        SkillCount = 0;
+        SkillGaugeBar.ChangeGaugeValue(SkillCount);
+        myButton.image.color = new Color(0.8f, 0.8f, 0.8f, 0.5f);
+        myButton.interactable = false; // 버튼을 비활성화합니다.
     }
 }
