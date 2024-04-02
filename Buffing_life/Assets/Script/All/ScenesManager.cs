@@ -12,17 +12,10 @@ public class ScenesManager : MonoBehaviour
         else Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
     }
-    public void GameScene()
+
+    private void Start()
     {
-        SceneManager.LoadScene("Game");
-    }
-    public void ToolScene()
-    {
-        SceneManager.LoadScene("Tool");
-    }
-    public void TitleScene()
-    {
-        SceneManager.LoadScene("Title");
+        SceneManager.LoadScene("Title");        
     }
 
     // Player

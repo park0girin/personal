@@ -68,7 +68,7 @@ public class Mob_Move : MonoBehaviour
         if (transform.position.y < 4)
         {
             skillTime += Time.deltaTime;
-            if (skillTime > Ran(8, 4) / GameManager.SpawnSpeed)
+            if (skillTime > Ran(8, 4))
             {
                 specialSkill = true;
             }

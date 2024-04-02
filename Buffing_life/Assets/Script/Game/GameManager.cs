@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     LV_text.text = ("LV " + Level.ToString());
-                    LV_text.color = Color.white;
+                    LV_text.color = new Color(0.7f, 1.0f, 0.5f);
                 }
             }
             else if (BossBattle)
