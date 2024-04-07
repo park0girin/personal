@@ -15,7 +15,7 @@ public class ScenesManager : MonoBehaviour
 
     private void Start()
     {
-        //SceneManager.LoadScene("Title");        
+        SceneManager.LoadScene("Title");        
     }
 
     // Player

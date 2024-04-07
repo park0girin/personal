@@ -17,4 +17,11 @@ public class Buttons : MonoBehaviour
     {
         SceneManager.LoadScene("Title");
     }
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 }

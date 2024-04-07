@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -5096433921173511247}
   - component: {fileID: 9059788318065759678}
   - component: {fileID: -7746219271852515420}
+  - component: {fileID: -5794109215371740981}
   m_Layer: 0
   m_Name: BOSS_D
   m_TagString: BOSS
@@ -163,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c1cc0fba2697246a3062fbab4495c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameManager: {fileID: 0}
   mob: 4
   speed_input: 5
   skillTime: 0
@@ -245,3 +247,23 @@ PolygonCollider2D:
       - {x: 0.39999998, y: -0.575}
       - {x: 0.66999996, y: -0.315}
   m_UseDelaunayMesh: 0
+--- !u!114 &-5794109215371740981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7882469032981784241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a781fd19cc002624eb302c1087d38b91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameManager: {fileID: 0}
+  PoolManager: {fileID: 0}
+  inobj1: {fileID: 0}
+  inobj2: {fileID: 0}
+  inobj3: {fileID: 0}
+  inobj4: {fileID: 0}
+  inobj5: {fileID: 0}
+  BOSSType: 1

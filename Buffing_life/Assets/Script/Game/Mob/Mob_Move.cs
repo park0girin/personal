@@ -21,8 +21,7 @@ public class Mob_Move : MonoBehaviour
         Green,
         Blue,
         White,
-        BOSS_C,
-        BOSS_D
+        BOSS
     }
     float Ran(float max, float min)
     {
@@ -40,10 +39,6 @@ public class Mob_Move : MonoBehaviour
         if (mob == mobType.White)
         {
             ChangeScript = GetComponent<sprite_change>();
-        }
-        else if(mob == mobType.BOSS_C)
-        {
-            
         }
     }
     void Green()
@@ -157,7 +152,7 @@ public class Mob_Move : MonoBehaviour
         }
         else if (hp <= 0)
         {
-            if (mob == mobType.BOSS_C || mob == mobType.BOSS_D)
+            if (mob == mobType.BOSS)
             {
                 GameManager.BossBattle = false;
                 GameManager.Level++;
@@ -186,12 +181,11 @@ public class Mob_Move : MonoBehaviour
                     case mobType.White:
                         White();
                         break;
-                    case mobType.BOSS_C:
-                    case mobType.BOSS_D:
+                    case mobType.BOSS:
                         BOSS();
                         break;
                 }
-                if (GameManager.BossBattle && mob != mobType.BOSS_C && mob != mobType.BOSS_D)
+                if (GameManager.BossBattle && mob != mobType.BOSS)
                 {
                     gameObject.SetActive(false);
                     return;
