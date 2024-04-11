@@ -168,7 +168,7 @@ MonoBehaviour:
   mob: 4
   speed_input: 5
   skillTime: 0
-  hp_input: 15
+  hp_input: 150
   hp: 0
 --- !u!210 &9059788318065759678
 SortingGroup:
@@ -261,9 +261,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
   PoolManager: {fileID: 0}
-  inobj1: {fileID: 0}
-  inobj2: {fileID: 0}
-  inobj3: {fileID: 0}
-  inobj4: {fileID: 0}
-  inobj5: {fileID: 0}
   BOSSType: 1

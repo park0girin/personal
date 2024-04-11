@@ -1,79 +1,108 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BOSS : MonoBehaviour
 {
     public GameManager GameManager;
     public poolManager PoolManager;
-    public GameObject inobj1;
-    public GameObject inobj2;
-    public GameObject inobj3;
-    public GameObject inobj4;
-    public GameObject inobj5;
     public Types BOSSType;
+
+    private int count = 0;
+    private bool B;
 
     public enum Types
     {
         Crepe,
         Drill
     }
+
     private void OnEnable()
     {
         GameManager = FindObjectOfType<GameManager>();
         PoolManager = FindObjectOfType<poolManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     void Crepe()
     {
-        int RandomAtack = Random.Range(0, 3);
-        switch (RandomAtack)
+        if (count >= 30)
         {
-            case 0:
-                bool b = true;
-                Crepe_1(b);
-                break;
-            case 1:
-                Crepe_2();
-                break;
-            case 2:
-                Crepe_3();
-                break;
+            count = 0;
+        }
+        else
+        {
+            if (count < 5)
+            {
+                CrepePattern1();
+                B = !B;
+            }
+            else if (count < 15)
+            {
+                CrepePattern2();
+            }
+            else if (count < 25)
+            {
+                CrepePattern3();
+            }
+
+            Debug.Log(count);
+            count++;
         }
     }
 
-    void Crepe_1(bool bullet)
+    void CrepePattern1()
     {
-        Debug.Log("Crepe_1");
-        for (int i = 0; i < 3; i++)
+        Debug.Log("Crepe Pattern 1");
+
+        // 총알 생성 및 위치 설정
+        if (B)
         {
-            if (bullet)
+            // 총알 위치 배열
+            Vector2[] bulletPositions = new Vector2[]
             {
-                // 프리팹 11을 풀로부터 가져오기
-                GameObject b5 = PoolManager.Get(11);
-                b5.transform.position = new Vector2(0f, -1f);
-                bullet = !bullet;
-            }
-            else if (!bullet)
+                new Vector2(-1.9f, 4f),
+                new Vector2(-0.64f, 4f),
+                new Vector2(0.64f, 4f),
+                new Vector2(1.9f, 4f)
+            };
+
+            // 총알 생성 및 위치 설정
+            for (int i = 0; i < bulletPositions.Length; i++)
             {
-                // 프리팹 12를 풀로부터 가져오기
-                GameObject b6 = PoolManager.Get(12);
-                b6.transform.position = new Vector2(0f, -1f);
-                bullet = !bullet;
+                GameObject bullet = PoolManager.Get(11); // 총알 가져오기
+                bullet.transform.position = bulletPositions[i]; // 총알 위치 설정
             }
         }
+        else
+        {
+            // 총알 위치 배열
+            Vector2[] bulletPositions = new Vector2[]
+            {
+                new Vector2(-2.5f, 4f),
+                new Vector2(-1.25f, 4f),
+                new Vector2(0f, 4f),
+                new Vector2(1.25f, 4f),
+                new Vector2(2.5f, 4f)
+            };
+
+            // 총알 생성 및 위치 설정
+            for (int i = 0; i < bulletPositions.Length; i++)
+            {
+                GameObject bullet = PoolManager.Get(11); // 총알 가져오기
+                bullet.transform.position = bulletPositions[i]; // 총알 위치 설정
+            }
+        }
+
     }
-    void Crepe_2()
+
+    void CrepePattern2()
     {
-        Debug.Log("Crepe_2");
+        // 두 번째 패턴: 다른 공격 패턴 구현
+        Debug.Log("Crepe Pattern 2"); // 다른 패턴의 예시
     }
-    void Crepe_3()
+
+    void CrepePattern3()
     {
-        Debug.Log("Crepe_3");
+        // 세 번째 패턴: 다른 공격 패턴 구현
+        Debug.Log("Crepe Pattern 3"); // 다른 패턴의 예시
     }
 }

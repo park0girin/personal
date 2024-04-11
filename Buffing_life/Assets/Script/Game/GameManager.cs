@@ -225,9 +225,12 @@ public class GameManager : MonoBehaviour
     // 버튼 비활성화 함수
     public void DeactivateButton()
     {
-        SkillCount = 0;
-        SkillGaugeBar.ChangeGaugeValue(SkillCount);
-        myButton.image.color = new Color(0.8f, 0.8f, 0.8f, 0.5f);
-        myButton.interactable = false; // 버튼을 비활성화합니다.
+        if (Gameing)
+        {
+            SkillCount = 0;
+            SkillGaugeBar.ChangeGaugeValue(SkillCount);
+            myButton.image.color = new Color(0.8f, 0.8f, 0.8f, 0.5f);
+            myButton.interactable = false; // 버튼을 비활성화합니다.
+        }
     }
 }

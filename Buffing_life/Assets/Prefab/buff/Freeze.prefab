@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5004180752377679452}
   - component: {fileID: 5547579439558941668}
   - component: {fileID: 8417369692791292555}
-  - component: {fileID: 7169706510789025603}
+  - component: {fileID: 4180575158961677137}
   m_Layer: 0
   m_Name: Freeze
   m_TagString: Untagged
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d9b76529f08720b42a45aa9120171322, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Sprite: {fileID: 21300000, guid: 0ca1375664ca5f44cbecaa78148ac31a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -111,9 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5792361e3b6fdfb45aef1149aa0401a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameManager: {fileID: 0}
   Buff_name: 0
---- !u!58 &7169706510789025603
-CircleCollider2D:
+--- !u!61 &4180575158961677137
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -144,6 +145,16 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.005, y: -0.005}
+  m_Offset: {x: 0.01, y: -0.01}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.44, y: 0.44}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.2, y: 0.32}
+  m_EdgeRadius: 0
