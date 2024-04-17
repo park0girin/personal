@@ -67,7 +67,7 @@ public class Mob_Move : MonoBehaviour
         if (transform.position.y < 4)
         {
             skillTime += Time.deltaTime;
-            if (skillTime > Ran(8, 4))
+            if (skillTime > Ran(5, 2))
             {
                 specialSkill = true;
             }
@@ -211,7 +211,11 @@ public class Mob_Move : MonoBehaviour
         {
             specialSkill = true;
         }
-        if (collision.CompareTag("bullet"))
+        if (mob == mobType.Blue && collision.CompareTag("bullet"))
+        {
+            hp = 0;
+        }
+        if (collision.CompareTag("bullet") && transform.position.y < 4)
         {
             if (!GameManager.Penetration)
             {

@@ -58,7 +58,8 @@ public class GameManager : MonoBehaviour
     public float gameTime;
     private void Update()
     {
-        UI_Text.text = ($"Life : {PlayerLife} / {ScenesManager.Instance.PlayerLifeMax}\nBuff : {(Level - 1) * 20 + BuffCount} / 20");
+        UI_Text.text = ($"Life : {PlayerLife} / {ScenesManager.Instance.PlayerLifeMax}\nBuff : {((Level % 5) - 1) * 10 + BuffCount} / 50");
+        testtext.text = ("Damage : " + BulletDamage);
         if (GameOver)
         {
             Black.SetActive(true);
@@ -71,7 +72,8 @@ public class GameManager : MonoBehaviour
             {
                 if (Level % 5 == 0)
                 {
-                    GameObject BOSS = pool.Get(Random.Range(4, 6));
+                    //GameObject BOSS = pool.Get(Random.Range(4, 6));
+                    GameObject BOSS = pool.Get(4);
                     BOSS.transform.position
                         = new Vector2(0f, 7f);
                     Debug.Log("BossBattle");
@@ -79,7 +81,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (BuffCount >= 20)
+                    if (BuffCount >= 10)
                     {
                         BuffCount = 0;
                         Debug.Log("Level up");
@@ -90,7 +92,8 @@ public class GameManager : MonoBehaviour
                         gameTime += Time.deltaTime;
                         if (gameTime >= (2.5 / SpawnSpeed))
                         {
-                            SpawnSpeed += Level / 75;
+                            if(SpawnSpeed < 5) SpawnSpeed += Level / 50;
+                            else SpawnSpeed = 5;
                             randomMob = Random.Range(0, 4);
                             GameObject Mob = pool.Get(randomMob);
                             Mob.transform.position

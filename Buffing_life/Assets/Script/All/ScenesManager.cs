@@ -15,13 +15,15 @@ public class ScenesManager : MonoBehaviour
 
     private void Start()
     {
-        //SceneManager.LoadScene("Title");        
+        BulletDamage = 0.5f;
+        SceneManager.LoadScene("Title");        
     }
 
     // Player
     public float ShotInterval = 0.5f;
     public int PlayerLifeMax = 3;
+    public int ShotType = 0;
 
     // Bullet
-    public float BulletDamage = 1.0f;
+    public float BulletDamage;
 }

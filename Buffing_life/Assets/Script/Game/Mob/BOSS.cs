@@ -20,6 +20,7 @@ public class BOSS : MonoBehaviour
     {
         GameManager = FindObjectOfType<GameManager>();
         PoolManager = FindObjectOfType<poolManager>();
+        count = 0;
     }
 
     void Crepe()
