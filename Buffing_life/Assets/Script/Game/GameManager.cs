@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public poolManager pool;
     public GameObject GameOverUI;
+    public GameObject GamePauseUI;
     public GameObject P_BT;
     public GameObject Black;
     public TextMeshPro testtext;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     // buff
     public int BuffCount;
+    public int MobCount;
     int RandomBuff;
     public Queue<string> buffsQueue = new Queue<string>();
     Dictionary<string, int> buffCountDict = new Dictionary<string, int>();
@@ -58,8 +60,7 @@ public class GameManager : MonoBehaviour
     public float gameTime;
     private void Update()
     {
-        UI_Text.text = ($"Life : {PlayerLife} / {ScenesManager.Instance.PlayerLifeMax}\nBuff : {((Level % 5) - 1) * 10 + BuffCount} / 50");
-        testtext.text = ("Damage : " + BulletDamage);
+        UI_Text.text = ($"Life : {PlayerLife} / {ScenesManager.Instance.PlayerLifeMax}\nMob : {(Level % 5 == 0 ? 0 : ((Level % 5) - 1) * 10 + MobCount)} / 50");
         if (GameOver)
         {
             Black.SetActive(true);
@@ -81,9 +82,9 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (BuffCount >= 10)
+                    if (MobCount >= 10)
                     {
-                        BuffCount = 0;
+                        MobCount = 0;
                         Debug.Log("Level up");
                         Level += 1;
                     }
@@ -157,6 +158,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         P_BT.SetActive(true);
         Black.SetActive(true);
+        GamePauseUI.SetActive(true);
     }
     public void Gamecontinue()
     {
@@ -164,6 +166,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         P_BT.SetActive(false);
         Black.SetActive(false);
+        GamePauseUI.SetActive(false);
     }
     public void Next()
     {
@@ -191,10 +194,12 @@ public class GameManager : MonoBehaviour
         GameOver = false;
         BulletDamage = ScenesManager.Instance.BulletDamage;
         BuffCount = 0;
+        MobCount = 0;
         SpawnSpeed = 1; 
         BossBattle = false;
         gameTime = 0;
         GameOverUI.SetActive(false);
+        GamePauseUI.SetActive(false);
         buffsQueue.Clear();
         buffCountDict = new Dictionary<string, int>();
         Buff_Text.text = ($"Buff : \n");
@@ -215,10 +220,63 @@ public class GameManager : MonoBehaviour
     }
     public void MakeBuff(Vector2 pos)
     {
-        RandomBuff = Random.Range(7, 11);
-        GameObject Buff = pool.Get(RandomBuff);
-        Buff.transform.position = pos;
+        int[] prefabProbabilities;
+
+        if (PlayerLife != 3)
+        {
+            // HP가 3이 아닌 경우
+            prefabProbabilities = new int[] { 20, 30, 30, 20 }; // 각 프리팹 확률 (예시)
+        }
+        else
+        {
+            // HP가 3인 경우
+            prefabProbabilities = new int[] { 20, 40, 40, 0 }; // 각 프리팹 확률 (예시)
+        }
+
+        // 확률에 따라 프리팹을 선택합니다.
+        int totalProbability = 0;
+        for (int i = 0; i < prefabProbabilities.Length; i++)
+        {
+            totalProbability += prefabProbabilities[i];
+        }
+
+        int randomValue = Random.Range(0, totalProbability); // 0부터 총 확률까지의 랜덤 값 생성
+
+        int prefabIndex = 0;
+        int cumulativeProbability = 0;
+
+        // 랜덤 값이 어느 프리팹 확률 범위에 속하는지 찾습니다.
+        for (int i = 0; i < prefabProbabilities.Length; i++)
+        {
+            cumulativeProbability += prefabProbabilities[i];
+
+            if (randomValue < cumulativeProbability)
+            {
+                prefabIndex = i + 7; // 인덱스 0부터 시작하므로 7을 더해서 7부터 10 사이의 값을 얻습니다.
+                break;
+            }
+        }
+
+        // 선택된 프리팹을 풀에서 가져와 위치 설정 후 활성화합니다.
+        if (prefabIndex >= 7 && prefabIndex <= 10)
+        {
+            GameObject Buff = pool.Get(prefabIndex);
+            if (Buff != null)
+            {
+                Buff.transform.position = pos;
+                Buff.SetActive(true);
+            }
+            else
+            {
+                Debug.LogError("풀에서 프리팹을 가져오지 못했습니다.");
+            }
+        }
+        else
+        {
+            Debug.LogError("올바른 프리팹 인덱스가 아닙니다.");
+        }
     }
+
     public void ActivateButton()
     {
         myButton.interactable = true; // 버튼을 활성화합니다.

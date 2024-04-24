@@ -152,15 +152,19 @@ public class Mob_Move : MonoBehaviour
         }
         else if (hp <= 0)
         {
+            specialSkill = false;
+            Vector2 pos = transform.position;
             if (mob == mobType.BOSS)
             {
                 GameManager.BossBattle = false;
                 GameManager.Level++;
                 GameManager.Gamecontinue();
             }
-            specialSkill = false;
-            Vector2 pos = transform.position;
-            GameManager.MakeBuff(pos);
+            else
+            {
+                GameManager.MobCount++;
+                GameManager.MakeBuff(pos);
+            }
             gameObject.SetActive(false);
         }
         else

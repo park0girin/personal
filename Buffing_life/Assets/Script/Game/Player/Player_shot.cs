@@ -64,12 +64,12 @@ public class Player_shot : MonoBehaviour
         Vector3 direction = Quaternion.Euler(0, 0, angle) * Vector3.up;
 
         // 총알의 방향과 위치 설정
-        bullet.SetActive(true);
         bullet.transform.position = pos.transform.position; // 발사 위치
         bullet.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction); // 발사 각도
+        bullet.SetActive(true);
     }
 
-    private void OnMouseDrag()
+    private void Update()
     {
         if (!skilling)
         {
