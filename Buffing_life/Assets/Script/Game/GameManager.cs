@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public GameObject GamePauseUI;
     public GameObject P_BT;
     public GameObject Black;
-    public TextMeshPro testtext;
 
     //player
     public GameObject Player;
@@ -31,7 +30,6 @@ public class GameManager : MonoBehaviour
     // buff
     public int BuffCount;
     public int MobCount;
-    int RandomBuff;
     public Queue<string> buffsQueue = new Queue<string>();
     Dictionary<string, int> buffCountDict = new Dictionary<string, int>();
     public bool Freeze;
@@ -48,6 +46,9 @@ public class GameManager : MonoBehaviour
     public PlayerUI_con SkillGaugeBar;
     public Button myButton;
 
+    // Debug UI
+    public GameObject DebugUI;
+
     // 상태
     public bool GameOver;
     public bool Gameing;
@@ -60,6 +61,11 @@ public class GameManager : MonoBehaviour
     public float gameTime;
     private void Update()
     {
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.D))
+        {
+            DebugUI.SetActive(true);
+        }
+
         UI_Text.text = ($"Life : {PlayerLife} / {ScenesManager.Instance.PlayerLifeMax}\nMob : {(Level % 5 == 0 ? 0 : ((Level % 5) - 1) * 10 + MobCount)} / 50");
         if (GameOver)
         {
@@ -75,9 +81,7 @@ public class GameManager : MonoBehaviour
                 {
                     //GameObject BOSS = pool.Get(Random.Range(4, 6));
                     GameObject BOSS = pool.Get(4);
-                    BOSS.transform.position
-                        = new Vector2(0f, 7f);
-                    Debug.Log("BossBattle");
+                    BOSS.transform.position = new Vector2(0f, 7f);
                     BossBattle = true;
                 }
                 else
@@ -85,7 +89,6 @@ public class GameManager : MonoBehaviour
                     if (MobCount >= 10)
                     {
                         MobCount = 0;
-                        Debug.Log("Level up");
                         Level += 1;
                     }
                     else
@@ -93,12 +96,11 @@ public class GameManager : MonoBehaviour
                         gameTime += Time.deltaTime;
                         if (gameTime >= (2.5 / SpawnSpeed))
                         {
-                            if(SpawnSpeed < 5) SpawnSpeed += Level / 50;
+                            if (SpawnSpeed < 5) SpawnSpeed += Level / 50;
                             else SpawnSpeed = 5;
                             randomMob = Random.Range(0, 4);
                             GameObject Mob = pool.Get(randomMob);
-                            Mob.transform.position
-                                = new Vector2(Random.Range(-2f, 2f), 6f);
+                            Mob.transform.position = new Vector2(Random.Range(-2f, 2f), 6f);
                             gameTime = 0;
                         }
                         if (BuffCount != 0)
@@ -145,10 +147,6 @@ public class GameManager : MonoBehaviour
                     ActivateButton();
                 }
             }
-            else if (BossBattle)
-            {
-
-            }
         }
     }
 
@@ -180,6 +178,7 @@ public class GameManager : MonoBehaviour
     }
     private void Reset()
     {
+        DebugUI.SetActive(false);
         Level = 1;
         Black.SetActive(false);
         P_BT.SetActive(false);
@@ -220,63 +219,66 @@ public class GameManager : MonoBehaviour
     }
     public void MakeBuff(Vector2 pos)
     {
-        int[] prefabProbabilities;
+        if (Random.Range(0, 2) == 0){
+            Debug.Log("버프 발생");
+            int[] prefabProbabilities;
 
-        if (PlayerLife != 3)
-        {
-            // HP가 3이 아닌 경우
-            prefabProbabilities = new int[] { 20, 30, 30, 20 }; // 각 프리팹 확률 (예시)
-        }
-        else
-        {
-            // HP가 3인 경우
-            prefabProbabilities = new int[] { 20, 40, 40, 0 }; // 각 프리팹 확률 (예시)
-        }
-
-        // 확률에 따라 프리팹을 선택합니다.
-        int totalProbability = 0;
-        for (int i = 0; i < prefabProbabilities.Length; i++)
-        {
-            totalProbability += prefabProbabilities[i];
-        }
-
-        int randomValue = Random.Range(0, totalProbability); // 0부터 총 확률까지의 랜덤 값 생성
-
-        int prefabIndex = 0;
-        int cumulativeProbability = 0;
-
-        // 랜덤 값이 어느 프리팹 확률 범위에 속하는지 찾습니다.
-        for (int i = 0; i < prefabProbabilities.Length; i++)
-        {
-            cumulativeProbability += prefabProbabilities[i];
-
-            if (randomValue < cumulativeProbability)
+            if (PlayerLife != 3)
             {
-                prefabIndex = i + 7; // 인덱스 0부터 시작하므로 7을 더해서 7부터 10 사이의 값을 얻습니다.
-                break;
-            }
-        }
-
-        // 선택된 프리팹을 풀에서 가져와 위치 설정 후 활성화합니다.
-        if (prefabIndex >= 7 && prefabIndex <= 10)
-        {
-            GameObject Buff = pool.Get(prefabIndex);
-            if (Buff != null)
-            {
-                Buff.transform.position = pos;
-                Buff.SetActive(true);
+                // HP가 3이 아닌 경우
+                prefabProbabilities = new int[] { 20, 30, 30, 20 }; // 각 프리팹 확률 (예시)
             }
             else
             {
-                Debug.LogError("풀에서 프리팹을 가져오지 못했습니다.");
+                // HP가 3인 경우
+                prefabProbabilities = new int[] { 20, 40, 40, 0 }; // 각 프리팹 확률 (예시)
+            }
+
+            // 확률에 따라 프리팹을 선택합니다.
+            int totalProbability = 0;
+            for (int i = 0; i < prefabProbabilities.Length; i++)
+            {
+                totalProbability += prefabProbabilities[i];
+            }
+
+            int randomValue = Random.Range(0, totalProbability); // 0부터 총 확률까지의 랜덤 값 생성
+
+            int prefabIndex = 0;
+            int cumulativeProbability = 0;
+
+            // 랜덤 값이 어느 프리팹 확률 범위에 속하는지 찾습니다.
+            for (int i = 0; i < prefabProbabilities.Length; i++)
+            {
+                cumulativeProbability += prefabProbabilities[i];
+
+                if (randomValue < cumulativeProbability)
+                {
+                    prefabIndex = i + 7; // 인덱스 0부터 시작하므로 7을 더해서 7부터 10 사이의 값을 얻습니다.
+                    break;
+                }
+            }
+
+            // 선택된 프리팹을 풀에서 가져와 위치 설정 후 활성화합니다.
+            if (prefabIndex >= 7 && prefabIndex <= 10)
+            {
+                GameObject Buff = pool.Get(prefabIndex);
+                if (Buff != null)
+                {
+                    Buff.transform.position = pos;
+                    Buff.SetActive(true);
+                }
+                else
+                {
+                    Debug.LogError("풀에서 프리팹을 가져오지 못했습니다.");
+                }
+            }
+            else
+            {
+                Debug.LogError("올바른 프리팹 인덱스가 아닙니다.");
             }
         }
-        else
-        {
-            Debug.LogError("올바른 프리팹 인덱스가 아닙니다.");
-        }
+        else Debug.Log("버프 발생하지 않음");
     }
-
     public void ActivateButton()
     {
         myButton.interactable = true; // 버튼을 활성화합니다.

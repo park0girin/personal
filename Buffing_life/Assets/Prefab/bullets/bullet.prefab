@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -8012173464495356402}
   - component: {fileID: -2808551264030751599}
   - component: {fileID: 4395884532484398384}
+  - component: {fileID: 5703085638063570376}
   m_Layer: 0
   m_Name: bullet
   m_TagString: bullet
@@ -188,3 +189,24 @@ PolygonCollider2D:
       - {x: -0.005309399, y: 0.19813791}
       - {x: 0.12554123, y: -0.07470554}
   m_UseDelaunayMesh: 0
+--- !u!95 &5703085638063570376
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563901708130200208}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f2756608672fd7d458bc3c0a55225941, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

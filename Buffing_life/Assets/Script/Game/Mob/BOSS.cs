@@ -31,16 +31,16 @@ public class BOSS : MonoBehaviour
         }
         else
         {
-            if (count < 5)
+            if (count <= 5)
             {
                 CrepePattern1();
                 B = !B;
             }
-            else if (count < 15)
+            else if (count == 15)
             {
                 CrepePattern2();
             }
-            else if (count < 25)
+            else if (count == 25)
             {
                 CrepePattern3();
             }
@@ -98,12 +98,30 @@ public class BOSS : MonoBehaviour
     void CrepePattern2()
     {
         // 두 번째 패턴: 다른 공격 패턴 구현
-        Debug.Log("Crepe Pattern 2"); // 다른 패턴의 예시
+        Debug.Log("Crepe Pattern 2");
+
+        Vector2[] bulletPositions = new Vector2[]
+            {
+                new Vector2(-2.4f, 4f),
+                new Vector2(-1.6f, 4f),
+                new Vector2(-0.8f, 4f),
+                new Vector2(0f, 4f),
+                new Vector2(0.8f, 4f),
+                new Vector2(1.6f, 4f),
+                new Vector2(2.4f, 4f)
+            };
+
+        // 총알 생성 및 위치 설정
+        for (int i = 0; i < bulletPositions.Length; i++)
+        {
+            GameObject bullet = PoolManager.Get(12); // 총알 가져오기
+            bullet.transform.position = bulletPositions[i]; // 총알 위치 설정
+        }
     }
 
     void CrepePattern3()
     {
         // 세 번째 패턴: 다른 공격 패턴 구현
-        Debug.Log("Crepe Pattern 3"); // 다른 패턴의 예시
+        Debug.Log("Crepe Pattern 3");
     }
 }

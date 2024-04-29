@@ -41,6 +41,7 @@ public class Buff : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+        if (GameManager.GameOver) this.gameObject.SetActive(false);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -66,7 +67,6 @@ public class Buff : MonoBehaviour
                     GameManager.SkillCount++;
                     break;
             }
-            Debug.Log(Buff_name);
 
             if (GameManager.buffsQueue.Count < 50)
             {

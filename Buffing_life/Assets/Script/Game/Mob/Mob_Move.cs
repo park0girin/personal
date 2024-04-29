@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Mob_Move : MonoBehaviour
@@ -219,13 +220,17 @@ public class Mob_Move : MonoBehaviour
         {
             hp = 0;
         }
-        if (collision.CompareTag("bullet") && transform.position.y < 4)
+        if (collision.CompareTag("bullet"))
         {
             if (!GameManager.Penetration)
             {
                 collision.gameObject.SetActive(false);
             }
-            if(!cannotBeHit) hp -= GameManager.BulletDamage;
+            if (!cannotBeHit && !(mob == mobType.BOSS && transform.position.y > 4))
+            {
+                hp -= GameManager.BulletDamage;
+            }
         }
+
     }
 }
