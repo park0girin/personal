@@ -38,8 +38,8 @@ public class Player_move : MonoBehaviour
             playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             player.transform.position = new Vector2(Mathf.Clamp(player.transform.position.x + diffPos.x, -2.8f, 2.8f),
-                (Mathf.Clamp(player.transform.position.y + diffPos.y, -3.5f, 4.0f)));
+                (Mathf.Clamp(player.transform.position.y + diffPos.y, -3.5f, 2.0f)));
         }
     }
-
+    
 }

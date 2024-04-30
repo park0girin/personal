@@ -60,10 +60,10 @@ public class BOSS : MonoBehaviour
             // 총알 위치 배열
             Vector2[] bulletPositions = new Vector2[]
             {
-                new Vector2(-1.9f, 4f),
-                new Vector2(-0.64f, 4f),
-                new Vector2(0.64f, 4f),
-                new Vector2(1.9f, 4f)
+                new Vector2(-1.9f, 2f),
+                new Vector2(-0.64f, 2f),
+                new Vector2(0.64f, 2f),
+                new Vector2(1.9f, 2f)
             };
 
             // 총알 생성 및 위치 설정
@@ -78,11 +78,11 @@ public class BOSS : MonoBehaviour
             // 총알 위치 배열
             Vector2[] bulletPositions = new Vector2[]
             {
-                new Vector2(-2.5f, 4f),
-                new Vector2(-1.25f, 4f),
-                new Vector2(0f, 4f),
-                new Vector2(1.25f, 4f),
-                new Vector2(2.5f, 4f)
+                new Vector2(-2.5f, 2f),
+                new Vector2(-1.25f, 2f),
+                new Vector2(0f, 2f),
+                new Vector2(1.25f, 2f),
+                new Vector2(2.5f, 2f)
             };
 
             // 총알 생성 및 위치 설정
@@ -102,13 +102,13 @@ public class BOSS : MonoBehaviour
 
         Vector2[] bulletPositions = new Vector2[]
             {
-                new Vector2(-2.4f, 4f),
-                new Vector2(-1.6f, 4f),
-                new Vector2(-0.8f, 4f),
-                new Vector2(0f, 4f),
-                new Vector2(0.8f, 4f),
-                new Vector2(1.6f, 4f),
-                new Vector2(2.4f, 4f)
+                new Vector2(-2.4f, 2.0f),
+                new Vector2(-1.6f, 2.0f),
+                new Vector2(-0.8f, 2.0f),
+                new Vector2(0f, 2.0f),
+                new Vector2(0.8f, 2.0f),
+                new Vector2(1.6f, 2.0f),
+                new Vector2(2.4f, 2.0f)
             };
 
         // 총알 생성 및 위치 설정

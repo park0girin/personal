@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     // ป๓ลย
     public bool GameOver;
     public bool Gameing;
+    public bool Debuging;
 
     private void OnEnable()
     {
@@ -63,7 +64,8 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.D))
         {
-            DebugUI.SetActive(true);
+            Debuging =! Debuging;
+            DebugUI.SetActive(Debuging);
         }
 
         UI_Text.text = ($"Life : {PlayerLife} / {ScenesManager.Instance.PlayerLifeMax}\nMob : {(Level % 5 == 0 ? 0 : ((Level % 5) - 1) * 10 + MobCount)} / 50");
@@ -178,6 +180,7 @@ public class GameManager : MonoBehaviour
     }
     private void Reset()
     {
+        Debuging = false;
         DebugUI.SetActive(false);
         Level = 1;
         Black.SetActive(false);

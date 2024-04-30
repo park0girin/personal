@@ -29,6 +29,7 @@ public class cream : MonoBehaviour
             }
         }
         if (GameManager.GameOver) this.gameObject.SetActive(false);
+        if (!GameManager.BossBattle) this.gameObject.SetActive(false);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
