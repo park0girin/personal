@@ -1287,7 +1287,7 @@ MonoBehaviour:
   ShotInterval: 0.5
   PlayerLifeMax: 3
   ShotType: 0
-  BulletDamage: 1
+  BulletDamage: 0.5
 --- !u!4 &1546508878
 Transform:
   m_ObjectHideFlags: 0

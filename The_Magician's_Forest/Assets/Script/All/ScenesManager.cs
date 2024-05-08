@@ -15,7 +15,6 @@ public class ScenesManager : MonoBehaviour
 
     private void Start()
     {
-        BulletDamage = 0.5f;
         SceneManager.LoadScene("Title");        
     }
 
@@ -25,5 +24,5 @@ public class ScenesManager : MonoBehaviour
     public int ShotType = 0;
 
     // Bullet
-    public float BulletDamage;
+    public float BulletDamage = 0.5f;
 }

@@ -16,6 +16,13 @@ public class BOSS : MonoBehaviour
         Drill
     }
 
+    private enum Pattern
+    {
+        Nomal,
+        Barrier,
+        Ultimate
+    }
+
     private void OnEnable()
     {
         GameManager = FindObjectOfType<GameManager>();
@@ -25,6 +32,7 @@ public class BOSS : MonoBehaviour
 
     void Crepe()
     {
+
         if (count >= 30)
         {
             count = 0;
@@ -44,10 +52,10 @@ public class BOSS : MonoBehaviour
             {
                 CrepePattern3();
             }
-
-            Debug.Log(count);
             count++;
         }
+
+
     }
 
     void CrepePattern1()
