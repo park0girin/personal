@@ -6,6 +6,7 @@ public class BOSS : MonoBehaviour
     public GameManager GameManager;
     public poolManager PoolManager;
     public Types BOSSType;
+    private Patterns Pattern;
 
     private int count = 0;
     private bool B;
@@ -16,7 +17,7 @@ public class BOSS : MonoBehaviour
         Drill
     }
 
-    private enum Pattern
+    private enum Patterns
     {
         Nomal,
         Barrier,
@@ -32,29 +33,20 @@ public class BOSS : MonoBehaviour
 
     void Crepe()
     {
-
-        if (count >= 30)
+        switch (Pattern)
         {
-            count = 0;
-        }
-        else
-        {
-            if (count <= 5)
-            {
+            case Patterns.Nomal:
                 CrepePattern1();
-                B = !B;
-            }
-            else if (count == 15)
-            {
+                break; 
+            case Patterns.Barrier:
                 CrepePattern2();
-            }
-            else if (count == 25)
-            {
+                Pattern = Patterns.Ultimate;
+                break;
+            case Patterns.Ultimate:
                 CrepePattern3();
-            }
-            count++;
-        }
+                break;
 
+        }
 
     }
 

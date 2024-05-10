@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     //player
     public GameObject Player;
     public int PlayerLife = 3;
+    public int MaxHP;
 
     //bullet
     public float BulletDamage;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        MaxHP = ScenesManager.Instance.PlayerLifeMax;
         Reset();
     }
 
@@ -65,6 +67,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.D))
         {
             Debuging =! Debuging;
+            if (Debuging)
+            {
+                Time.timeScale = 0f;
+                Gameing = false;
+                Black.SetActive(true);
+            }
+            else
+            {
+                Gamecontinue();
+            }
             DebugUI.SetActive(Debuging);
         }
 
@@ -82,7 +94,7 @@ public class GameManager : MonoBehaviour
                 if (Level % 5 == 0)
                 {
                     //GameObject BOSS = pool.Get(Random.Range(4, 6));
-                    GameObject BOSS = pool.Get(4);
+                    GameObject BOSS = pool.Get(5);
                     BOSS.transform.position = new Vector2(0f, 7f);
                     BossBattle = true;
                 }
@@ -183,10 +195,10 @@ public class GameManager : MonoBehaviour
         P_BT.SetActive(false);
         Freeze = false;
         FreezeSkillTime = 0;
-        PlayerLife = ScenesManager.Instance.PlayerLifeMax;
+        PlayerLife = MaxHP;
         Player.SetActive(true);
-        HPGaugeBar.maxGaugeValue = ScenesManager.Instance.PlayerLifeMax;
-        HPGaugeBar.ChangeGaugeValue(ScenesManager.Instance.PlayerLifeMax);
+        HPGaugeBar.maxGaugeValue = MaxHP;
+        HPGaugeBar.ChangeGaugeValue(MaxHP);
         DeactivateButton();
         Gameing = true;
         GameOver = false;
