@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
+  BOSS: {fileID: -3268845336802858523, guid: dcee36c38e12969428f59b9ae66c2ecb, type: 3}
   inputHP: 50
   HP: 0
 --- !u!114 &4277270751722748278

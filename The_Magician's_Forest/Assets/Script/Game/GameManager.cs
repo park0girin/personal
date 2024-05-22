@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
                         {
                             if (SpawnSpeed < 5) SpawnSpeed += Level / 50;
                             else SpawnSpeed = 5;
+                            
                             randomMob = Random.Range(0, 4);
                             GameObject Mob = pool.Get(randomMob);
                             Mob.transform.position = new Vector2(Random.Range(-2f, 2f), 6f);

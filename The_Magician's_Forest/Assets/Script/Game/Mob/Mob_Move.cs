@@ -32,7 +32,7 @@ public class Mob_Move : MonoBehaviour
     private void OnEnable()
     {
         GameManager = FindObjectOfType<GameManager>();
-        hp = hp_input;
+        if (hp == 0) hp = hp_input;
         hp *= GameManager.HpMultiplier;
         speed = Ran(speed_input + 1, speed_input - 1);
         specialSkill = false;

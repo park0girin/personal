@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1615744457369829750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3239309880966532624}
+  m_Layer: 0
+  m_Name: D_bulletPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3239309880966532624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615744457369829750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4462316889758040160}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7882469032981784241
 GameObject:
   m_ObjectHideFlags: 0
@@ -16,6 +47,7 @@ GameObject:
   - component: {fileID: 9059788318065759678}
   - component: {fileID: -7746219271852515420}
   - component: {fileID: -5794109215371740981}
+  - component: {fileID: -6712222981428945107}
   m_Layer: 0
   m_Name: BOSS_D
   m_TagString: BOSS
@@ -35,7 +67,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3239309880966532624}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7915068845045041864
@@ -189,7 +222,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7882469032981784241}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -226,26 +259,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.66999996, y: 0.175}
-      - {x: 0.65, y: 0.185}
-      - {x: 0.61, y: 0.295}
-      - {x: 0.55, y: 0.42499998}
-      - {x: 0.48999998, y: 0.565}
-      - {x: 0.32999998, y: 0.625}
-      - {x: -0.26999998, y: 0.625}
-      - {x: -0.39999998, y: 0.515}
-      - {x: -0.52, y: 0.445}
-      - {x: -0.58, y: 0.385}
-      - {x: -0.65, y: 0.16499999}
-      - {x: -0.65, y: -0.195}
-      - {x: -0.59999996, y: -0.295}
-      - {x: -0.53999996, y: -0.36499998}
-      - {x: -0.45, y: -0.505}
-      - {x: -0.25, y: -0.625}
-      - {x: 0.26, y: -0.625}
-      - {x: 0.28, y: -0.60499996}
-      - {x: 0.39999998, y: -0.575}
-      - {x: 0.66999996, y: -0.315}
+    - - {x: -0.009643197, y: -0.80121475}
+      - {x: 0.6541188, y: 0.7822622}
+      - {x: -0.6833817, y: 0.78516686}
   m_UseDelaunayMesh: 0
 --- !u!114 &-5794109215371740981
 MonoBehaviour:
@@ -261,4 +277,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
   PoolManager: {fileID: 0}
+  mm: {fileID: -5096433921173511247}
   BOSSType: 1
+  Cream: 0
+  moveSpeed: 2
+--- !u!95 &-6712222981428945107
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7882469032981784241}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 46c1e0b984cc290498b01c15051c0032, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

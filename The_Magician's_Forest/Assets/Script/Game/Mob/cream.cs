@@ -5,6 +5,7 @@ using UnityEngine;
 public class cream : MonoBehaviour
 {
     public GameManager GameManager;
+    public BOSS BOSS;
     public float inputHP;
     public float HP;
     float trigger_time;
@@ -18,7 +19,12 @@ public class cream : MonoBehaviour
     }
     private void Update()
     {
-        if (HP <= 0) this.gameObject.SetActive(false);
+        if (HP <= 0) 
+        {
+            BOSS.Cream = false;
+            Debug.Log("Å©¸² ¶ÕÀ½");
+            this.gameObject.SetActive(false); 
+        }
         if (player_trigger)
         {
             trigger_time += Time.deltaTime;
