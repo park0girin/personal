@@ -49,13 +49,13 @@ public class Mob_Move : MonoBehaviour
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
         }
-        else if(specialSkill)
+        else if (specialSkill)
         {
             skillTime += Time.deltaTime;
             if (skillTime > 2f)
             {
                 cannotBeHit = false;
-                specialSkill =! specialSkill;
+                specialSkill = !specialSkill;
             }
         }
     }
@@ -149,6 +149,7 @@ public class Mob_Move : MonoBehaviour
     {
         if (GameManager.GameOver)
         {
+            hp = 0;
             gameObject.SetActive(false);
         }
         else if (hp <= 0)
@@ -199,7 +200,7 @@ public class Mob_Move : MonoBehaviour
             else
             {
                 GameManager.FreezeSkillTime += Time.deltaTime;
-                if(GameManager.FreezeSkillTime > 2.0f)
+                if (GameManager.FreezeSkillTime > 2.0f)
                 {
                     GameManager.Freeze = false;
                 }
@@ -208,7 +209,7 @@ public class Mob_Move : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(mob == mobType.Green && collision.CompareTag("bullet"))
+        if (mob == mobType.Green && collision.CompareTag("bullet"))
         {
             specialSkill = true;
         }
@@ -222,10 +223,6 @@ public class Mob_Move : MonoBehaviour
         }
         if (collision.CompareTag("bullet"))
         {
-            if (!GameManager.Penetration)
-            {
-                collision.gameObject.SetActive(false);
-            }
             if (!cannotBeHit && !(mob == mobType.BOSS && transform.position.y > 4))
             {
                 hp -= GameManager.BulletDamage;

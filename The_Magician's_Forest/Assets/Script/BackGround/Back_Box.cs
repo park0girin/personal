@@ -11,6 +11,6 @@ public class Back_Box : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        collision.gameObject.SetActive(false);
+        if (!collision.CompareTag("BOSS")) collision.gameObject.SetActive(false);
     }
 }

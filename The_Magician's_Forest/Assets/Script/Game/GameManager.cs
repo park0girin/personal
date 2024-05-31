@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public poolManager pool;
+    public PoolManager pool;
     public GameObject GameOverUI;
     public GameObject GamePauseUI;
     public GameObject P_BT;
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     //bullet
     public float BulletDamage;
-    public bool Penetration = false;
+    //public bool Penetration = false;
     public bool RedBullet = false;
 
     //mob

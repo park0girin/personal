@@ -4402,7 +4402,6 @@ MonoBehaviour:
   PlayerLife: 3
   MaxHP: 0
   BulletDamage: 1
-  Penetration: 0
   RedBullet: 0
   SpawnSpeed: 1
   BossBattle: 0
@@ -7029,6 +7028,7 @@ MonoBehaviour:
   - {fileID: 9132372477436319176, guid: 63a80ffcf8bb719458c4f2fecee48104, type: 3}
   - {fileID: 3875823389939229151, guid: 7931145d3a2e75c40a24946ecdab03f2, type: 3}
   - {fileID: 832444007214643951, guid: af5a21190d23b814ea5bc269f9704697, type: 3}
+  - {fileID: 3875823389939229151, guid: 1aa5b66216634784fb1f306a467d6d03, type: 3}
 --- !u!1 &2139785481
 GameObject:
   m_ObjectHideFlags: 0

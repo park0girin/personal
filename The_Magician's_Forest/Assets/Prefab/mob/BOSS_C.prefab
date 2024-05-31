@@ -217,6 +217,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
   PoolManager: {fileID: 0}
-  mm: {fileID: 8785008043766427205}
   BOSSType: 0
+  hp: 0
+  inhp: 150
   Cream: 0
+  moveSpeed: 0
+  bulletsToShoot: 7

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9091309631756490772}
   - component: {fileID: 9060109190302502315}
   m_Layer: 0
-  m_Name: D_Bullet
+  m_Name: D_Bullet1
   m_TagString: Mob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7726b2323027a934faf229e0e4c5623a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletshot: 10
+  bulletshot: -10
 --- !u!210 &9091309631756490772
 SortingGroup:
   m_ObjectHideFlags: 0
