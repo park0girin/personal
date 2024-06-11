@@ -94,9 +94,11 @@ public class GameManager : MonoBehaviour
                 if (Level % 5 == 0)
                 {
                     //GameObject BOSS = pool.Get(Random.Range(4, 6));
-                    GameObject BOSS = pool.Get(5);
+                    GameObject BOSS = pool.Get(4);
                     BOSS.transform.position = new Vector2(0f, 7f);
                     BossBattle = true;
+                    if (SpawnSpeed < 5) SpawnSpeed += 0.5f;
+                    else SpawnSpeed = 5;
                 }
                 else
                 {
@@ -104,15 +106,14 @@ public class GameManager : MonoBehaviour
                     {
                         MobCount = 0;
                         Level += 1;
+                        HpMultiplier = Mathf.Pow(1.2f, Level);
+
                     }
                     else
                     {
                         gameTime += Time.deltaTime;
                         if (gameTime >= (2.5 / SpawnSpeed))
                         {
-                            if (SpawnSpeed < 5) SpawnSpeed += Level / 50;
-                            else SpawnSpeed = 5;
-                            
                             randomMob = Random.Range(0, 4);
                             GameObject Mob = pool.Get(randomMob);
                             Mob.transform.position = new Vector2(Random.Range(-2f, 2f), 6f);
@@ -206,6 +207,7 @@ public class GameManager : MonoBehaviour
         BulletDamage = ScenesManager.Instance.BulletDamage;
         BuffCount = 0;
         MobCount = 0;
+        HpMultiplier = 1;
         SpawnSpeed = 1; 
         BossBattle = false;
         gameTime = 0;

@@ -6,13 +6,15 @@ using UnityEngine;
 public class Mob_Move : MonoBehaviour
 {
     public GameManager GameManager;
+    public PoolManager PoolManager;
     public mobType mob;
     public float speed_input;
     float speed;
     public float skillTime;
     public float hp_input;
+    public float hpmax;
     public float hp;
-    bool specialSkill;
+    public bool specialSkill;
     bool cannotBeHit;
     sprite_change ChangeScript;
 
@@ -32,8 +34,9 @@ public class Mob_Move : MonoBehaviour
     private void OnEnable()
     {
         GameManager = FindObjectOfType<GameManager>();
-        if (hp == 0) hp = hp_input;
-        hp *= GameManager.HpMultiplier;
+        PoolManager = FindObjectOfType<PoolManager>();
+        hpmax = hp_input * GameManager.HpMultiplier;
+        hp = hpmax;
         speed = Ran(speed_input + 1, speed_input - 1);
         specialSkill = false;
         skillTime = 0;
@@ -44,17 +47,23 @@ public class Mob_Move : MonoBehaviour
     }
     void Green()
     {
-        cannotBeHit = false;
         if (!specialSkill)
         {
+            skillTime = 0;
             transform.Translate(Vector2.down * speed * Time.deltaTime);
         }
         else if (specialSkill)
         {
+            if (skillTime == 0)
+            {
+                GameObject gb = PoolManager.Get(14);
+                gb.transform.position = this.transform.position;
+                gb.SetActive(true);
+            }
             skillTime += Time.deltaTime;
             if (skillTime > 2f)
             {
-                cannotBeHit = false;
+                Debug.Log("specialSkill false");
                 specialSkill = !specialSkill;
             }
         }
@@ -65,19 +74,16 @@ public class Mob_Move : MonoBehaviour
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
         }
-        if (transform.position.y < 4)
+        skillTime += Time.deltaTime;
+        if (skillTime > Ran(5, 2))
         {
-            skillTime += Time.deltaTime;
-            if (skillTime > Ran(5, 2))
-            {
-                specialSkill = true;
-            }
-            if (specialSkill)
-            {
-                Vector2 pos = transform.position;
-                GameManager.Boom(pos);
-                gameObject.SetActive(false);
-            }
+            specialSkill = true;
+        }
+        if (specialSkill)
+        {
+            Vector2 pos = transform.position;
+            GameManager.Boom(pos);
+            gameObject.SetActive(false);
         }
     }
     void Blue()
@@ -124,19 +130,19 @@ public class Mob_Move : MonoBehaviour
     }
     void White()
     {
-        if (!specialSkill)
+        if (hp <= (hp_input / 2))
         {
-            transform.Translate(Vector2.down * speed * Time.deltaTime);
-            if (hp <= (hp_input / 2))
+            if (!specialSkill)
             {
                 specialSkill = true;
             }
+            if (specialSkill)
+            {
+                ChangeScript.Change();
+                transform.Translate(Vector2.down * 10 * Time.deltaTime);
+            }
         }
-        if (specialSkill)
-        {
-            ChangeScript.Change();
-            transform.Translate(Vector2.down * speed * 10 * Time.deltaTime);
-        }
+        else transform.Translate(Vector2.down * speed * Time.deltaTime);
     }
     void BOSS()
     {
@@ -144,12 +150,14 @@ public class Mob_Move : MonoBehaviour
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
         }
+        else specialSkill = true;
     }
     private void Update()
     {
         if (GameManager.GameOver)
         {
             hp = 0;
+            hpmax = hp_input;
             gameObject.SetActive(false);
         }
         else if (hp <= 0)
@@ -209,25 +217,28 @@ public class Mob_Move : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (mob == mobType.Green && collision.CompareTag("bullet"))
+        if (this.transform.position.y <= 5)
         {
-            specialSkill = true;
-        }
-        if (mob == mobType.Red && transform.position.y < 4)
-        {
-            specialSkill = true;
-        }
-        if (mob == mobType.Blue && collision.CompareTag("bullet"))
-        {
-            hp = 0;
-        }
-        if (collision.CompareTag("bullet"))
-        {
-            if (!cannotBeHit && !(mob == mobType.BOSS && transform.position.y > 4))
+            if (mob == mobType.Green && collision.CompareTag("bullet"))
             {
-                hp -= GameManager.BulletDamage;
+                specialSkill = true;
+            }
+            if (mob == mobType.Red && (!collision.CompareTag("BG") || !collision.CompareTag("BUFF")))
+            {
+                specialSkill = true;
+            }
+            if (mob == mobType.Blue && collision.CompareTag("bullet"))
+            {
+                hp = 0;
+            }
+            if (collision.CompareTag("bullet"))
+            {
+                collision.gameObject.SetActive(false);
+                if (!cannotBeHit && !(mob == mobType.BOSS && transform.position.y > 4))
+                {
+                    hp -= GameManager.BulletDamage;
+                }
             }
         }
-
     }
 }

@@ -2984,7 +2984,7 @@ GameObject:
   - component: {fileID: 878216139}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6890,7 +6890,7 @@ GameObject:
   - component: {fileID: 2093119965}
   m_Layer: 0
   m_Name: BackGround
-  m_TagString: Untagged
+  m_TagString: BG
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7029,6 +7029,8 @@ MonoBehaviour:
   - {fileID: 3875823389939229151, guid: 7931145d3a2e75c40a24946ecdab03f2, type: 3}
   - {fileID: 832444007214643951, guid: af5a21190d23b814ea5bc269f9704697, type: 3}
   - {fileID: 3875823389939229151, guid: 1aa5b66216634784fb1f306a467d6d03, type: 3}
+  - {fileID: 5491202568380390222, guid: 57a29f81ab58f3d4d962023c3d4fbc2d, type: 3}
+  - {fileID: 8126970956454538616, guid: d2d74effd08edf449928fe01f1fecfa9, type: 3}
 --- !u!1 &2139785481
 GameObject:
   m_ObjectHideFlags: 0

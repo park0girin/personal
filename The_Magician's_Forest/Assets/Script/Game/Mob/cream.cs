@@ -16,14 +16,15 @@ public class cream : MonoBehaviour
         HP = inputHP;
         trigger_time = 0;
         player_trigger = false;
+        BOSS.Barrier_Active = true;
     }
     private void Update()
     {
-        if (HP <= 0) 
+        this.gameObject.SetActive(BOSS.Barrier_Active);
+        if (HP <= 0)
         {
-            BOSS.Cream = false;
+            BOSS.Barrier_Active = false;
             Debug.Log("Å©¸² ¶ÕÀ½");
-            this.gameObject.SetActive(false); 
         }
         if (player_trigger)
         {
@@ -49,6 +50,10 @@ public class cream : MonoBehaviour
             GameManager.PlayerLife--;
             player_trigger = true;
         }
+        if (collision.CompareTag("banana"))
+        {
+            HP = 0;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -56,5 +61,9 @@ public class cream : MonoBehaviour
         {
             player_trigger = false;
         }
+    }
+    private void OnDisable()
+    {
+        Debug.Log("Cream disabled");
     }
 }

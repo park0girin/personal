@@ -18,6 +18,11 @@ public class Debug_Manager : MonoBehaviour
         LVField.text = GameManager.Level.ToString();
         DamageField.text = GameManager.BulletDamage.ToString("0.0");
     }
+    private void OnEnable()
+    {
+        DamageField.text = GameManager.BulletDamage.ToString("0.0");
+        LVField.text = GameManager.Level.ToString();
+    }
 
     private void Update()
     {
@@ -38,7 +43,7 @@ public class Debug_Manager : MonoBehaviour
     public void Damage_Button()
     {
         // 데미지 버튼을 클릭할 때 데미지를 증가
-        GameManager.BulletDamage += (ScenesManager.Instance.BulletDamage / 5);
+        GameManager.BulletDamage += (ScenesManager.Instance.BulletDamage);
         DamageField.text = GameManager.BulletDamage.ToString("0.0");
     }
 

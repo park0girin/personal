@@ -25,6 +25,10 @@ public class Player_HP : MonoBehaviour
         {
             GameManager.PlayerLife -= 2;
         }
+        if (collision.CompareTag("banana"))
+        {
+            GameManager.PlayerLife -= 1;
+        }
         GameManager.HPGaugeBar.ChangeGaugeValue(GameManager.PlayerLife);
         GameManager.SkillGaugeBar.ChangeGaugeValue(GameManager.SkillCount);
     }

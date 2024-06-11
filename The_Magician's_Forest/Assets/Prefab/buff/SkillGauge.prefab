@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5958309155123566992}
   m_Layer: 0
   m_Name: SkillGauge
-  m_TagString: Untagged
+  m_TagString: BUFF
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

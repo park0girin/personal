@@ -24,5 +24,5 @@ public class ScenesManager : MonoBehaviour
     public int ShotType = 0;
 
     // Bullet
-    public float BulletDamage = 0.5f;
+    public float BulletDamage = 1.0f;
 }

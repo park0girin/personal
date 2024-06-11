@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 6170891328563818208}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 7, z: 0}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -169,6 +169,7 @@ MonoBehaviour:
   speed_input: 5
   skillTime: 0
   hp_input: 150
+  hpmax: 0
   hp: 0
 --- !u!210 &5192214186664395890
 SortingGroup:
@@ -220,6 +221,10 @@ MonoBehaviour:
   BOSSType: 0
   hp: 0
   inhp: 150
+  mm: {fileID: 0}
   Cream: 0
   moveSpeed: 0
   bulletsToShoot: 7
+  targetPosition: {x: 0, y: 0}
+  tolerance: 0.1
+  playerTransform: {fileID: 0}

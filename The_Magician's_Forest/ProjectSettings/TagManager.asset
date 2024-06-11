@@ -9,6 +9,9 @@ TagManager:
   - Mob
   - BOSS
   - Obstacle
+  - player
+  - BUFF
+  - banana
   layers:
   - Default
   - TransparentFX

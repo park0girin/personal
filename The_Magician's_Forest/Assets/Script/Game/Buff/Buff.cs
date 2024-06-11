@@ -17,7 +17,7 @@ public class Buff : MonoBehaviour
     private void OnEnable()
     {
         GameManager = FindObjectOfType<GameManager>();
-        UpDamage = ScenesManager.Instance.BulletDamage / 5;
+        UpDamage = ScenesManager.Instance.BulletDamage;
     }
     private void Update()
     {
