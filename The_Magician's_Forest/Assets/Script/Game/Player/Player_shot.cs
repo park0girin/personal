@@ -1,22 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ScenesManager;
 
 public class Player_shot : MonoBehaviour
 {
     public GameManager GameManager;
+    public GameObject[] bulletobjs;
     public GameObject bulletobj;
     public int poolSize = 10;
     GameObject[] bulletPool;
     public GameObject pos;
     public float angle;
     float shotTime;
-    bool skilling;
+    float skillTime;
+    public bool skilling;
     int bulletsToShoot = 3; // ShotType이 0일 때 발사할 총알 개수
+    public BulletType BulletTypes;
 
     void Start()
     {
         GameManager = FindObjectOfType<GameManager>(); // GameManager 찾기
+        
+    }
+
+    private void OnEnable()
+    {
+        skillTime = 0;
+        BulletTypes = ScenesManager.Instance.BulletTypes;
+        switch (BulletTypes)
+        {
+            case BulletType.Ice:
+                poolSize = 10;
+                bulletsToShoot = 3;
+                ScenesManager.Instance.BulletDamage = 1;
+                bulletobj = bulletobjs[0];
+                break;
+            case BulletType.Fire:
+                poolSize = 1;
+                bulletsToShoot = 1;
+                ScenesManager.Instance.BulletDamage = 3;
+                bulletobj = bulletobjs[1];
+                break;
+            case BulletType.Thunder:
+                poolSize = 8;
+                bulletsToShoot = 1;
+                ScenesManager.Instance.BulletDamage = 1.5f;
+                bulletobj = bulletobjs[2];
+                break;
+            case BulletType.Wind:
+                poolSize = 8;
+                bulletsToShoot = 1;
+                ScenesManager.Instance.BulletDamage = 1.5f;
+                bulletobj = bulletobjs[3];
+                break;
+            default:
+                BulletTypes = BulletType.Ice;
+                poolSize = 10;
+                bulletsToShoot = 3;
+                ScenesManager.Instance.BulletDamage = 1;
+                bulletobj = bulletobjs[0];
+                break;
+        }
+
         bulletPool = new GameObject[poolSize];
 
         for (int i = 0; i < poolSize; i++)
@@ -75,17 +121,28 @@ public class Player_shot : MonoBehaviour
         {
             if (!skilling)
             {
-                shotTime += Time.deltaTime;
+                if (BulletTypes != BulletType.Fire) shotTime += Time.deltaTime;
+                else
+                {
+                    GameObject bullet = GetNextInactiveBullet(); // 비활성화된 총알 가져오기
+                    ShootBullet(bullet, 0);
+                }
                 if (shotTime >= ScenesManager.Instance.ShotInterval)
                 {
                     // ShotType이 0일 때만 3개의 총알을 발사
-                    if (ScenesManager.Instance.ShotType == 0)
+                    if (BulletTypes == BulletType.Ice)
                     {
                         // 첫 번째 총알의 시작 각도 설정
                         float startingAngle = -angle; // 첫 번째 총알은 -angle 각도로 발사
 
                         ShootBullets(startingAngle); // 총알들을 발사하고 각 총알의 각도를 설정
 
+                        shotTime = 0;
+                    }
+                    else
+                    {
+                        GameObject bullet = GetNextInactiveBullet(); // 비활성화된 총알 가져오기
+                        ShootBullet(bullet, 0);
                         shotTime = 0;
                     }
                 }
@@ -98,29 +155,56 @@ public class Player_shot : MonoBehaviour
         // 모든 활성화된 총알을 비활성화
         DeactivateAllBullets();
 
-        // 첫 번째 총알의 시작 x 위치
-        float startX = -2.5f;
-        // 일정 간격 계산
-        float interval = CalculateBulletInterval();
 
-        // 총알 발사
-        for (int i = 0; i < poolSize; i++)
+        if (BulletTypes == BulletType.Ice)
         {
-            GameObject bullet = GetNextInactiveBullet(); // 비활성화된 총알 가져오기
-            if (bullet != null)
+            // 첫 번째 총알의 시작 x 위치
+            float startX = -2.5f;
+            // 일정 간격 계산
+            float interval = CalculateBulletInterval();
+
+            // 총알 발사
+            for (int i = 0; i < poolSize; i++)
             {
-                // 총알 위치 설정 (x는 일정 간격으로 배치, y는 고정된 값으로 설정)
-                float posX = startX + i * interval;
-                float posY = -4.0f;
+                GameObject bullet = GetNextInactiveBullet(); // 비활성화된 총알 가져오기
+                if (bullet != null)
+                {
+                    // 총알 위치 설정 (x는 일정 간격으로 배치, y는 고정된 값으로 설정)
+                    float posX = startX + i * interval;
+                    float posY = -4.0f;
 
-                // 총알 발사 각도 설정 (위쪽 방향으로 발사)
-                float bulletAngle = 0.0f;
+                    // 총알 발사 각도 설정 (위쪽 방향으로 발사)
+                    float bulletAngle = 0.0f;
 
-                // 총알 활성화 및 위치/각도 설정
-                bullet.SetActive(true);
-                bullet.transform.position = new Vector3(posX, posY, 0f);
-                bullet.transform.rotation = Quaternion.Euler(0f, 0f, bulletAngle);
+                    // 총알 활성화 및 위치/각도 설정
+                    bullet.SetActive(true);
+                    bullet.transform.position = new Vector3(posX, posY, 0f);
+                    bullet.transform.rotation = Quaternion.Euler(0f, 0f, bulletAngle);
+                }
             }
+
+        }
+        else if(BulletTypes == BulletType.Fire)
+        {
+
+        }
+        else if (BulletTypes == BulletType.Thunder)
+        {
+            if (!skilling)
+            {
+                skillTime = 0;
+                GameObject Bullet = Instantiate(bulletobjs[4]);
+                skilling = true;
+            }
+            if (skilling)
+            {
+                skillTime += Time.deltaTime;
+                if (skillTime >= 0.1f) skilling = false;
+            }
+        }
+        else if (BulletTypes == BulletType.Wind)
+        {
+
         }
     }
 

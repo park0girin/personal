@@ -288,8 +288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShotInterval: 0.5
   PlayerLifeMax: 3
-  ShotType: 0
   BulletDamage: 0.5
+  BulletTypes: 2
 --- !u!4 &142410849
 Transform:
   m_ObjectHideFlags: 0
@@ -5643,10 +5643,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManager: {fileID: 1216220108}
+  bulletobjs:
+  - {fileID: 1563901708130200208, guid: 46820274f337e704c854b5dfc85a5608, type: 3}
+  - {fileID: 1563901708130200208, guid: fd22311229258d84cb707bc47559fadb, type: 3}
+  - {fileID: 5331168866280852231, guid: 74ae6c5613eb8884092f2e8df9f56ed5, type: 3}
+  - {fileID: 1563901708130200208, guid: dd908773777774646a95aa9108255f42, type: 3}
   bulletobj: {fileID: 1563901708130200208, guid: 46820274f337e704c854b5dfc85a5608, type: 3}
   poolSize: 10
   pos: {fileID: 817820926}
   angle: 15
+  BulletTypes: 0
 --- !u!1 &1515999585
 GameObject:
   m_ObjectHideFlags: 0

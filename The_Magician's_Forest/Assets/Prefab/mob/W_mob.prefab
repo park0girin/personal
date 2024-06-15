@@ -121,9 +121,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.005, y: -0.005}
+  m_Offset: {x: 0.01, y: -0.005}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.11
 --- !u!50 &4703698958745090507
 Rigidbody2D:
   serializedVersion: 4
@@ -164,11 +164,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
+  PoolManager: {fileID: 0}
   mob: 3
   speed_input: 1
   skillTime: 0
   hp_input: 5
+  hpmax: 0
   hp: 0
+  specialSkill: 0
 --- !u!210 &-8431442027891135965
 SortingGroup:
   m_ObjectHideFlags: 0

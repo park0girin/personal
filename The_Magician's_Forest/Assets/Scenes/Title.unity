@@ -2558,8 +2558,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShotInterval: 0.5
   PlayerLifeMax: 3
-  ShotType: 0
   BulletDamage: 0.5
+  BulletTypes: 2
 --- !u!4 &1709457490
 Transform:
   m_ObjectHideFlags: 0

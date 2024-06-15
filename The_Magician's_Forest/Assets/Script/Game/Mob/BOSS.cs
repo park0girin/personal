@@ -477,6 +477,7 @@ public class BOSS : MonoBehaviour
     private void OnDisable()
     {
         Debug.Log("Boss disabled");
+        StopAllCoroutines(); // 모든 코루틴 중지
         GameManager.BossBattle = false;
     }
 }

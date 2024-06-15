@@ -1,0 +1,12 @@
+모든 효과음은 픽사베이에서 가져옴
+https://pixabay.com/ko/sound-effects/search/%eb%a7%88%eb%b2%95/
+
+elctric zap = 전기 마법
+fire spell = 불꽃 마법
+magic spell = 바람 마법
+magic smite = 얼음 마법
+sword schwing = 마법 스킬 사용
+bush cut = 몬스터 사망 시
+timber tree falling = 보스 사망 시
+
+bgm

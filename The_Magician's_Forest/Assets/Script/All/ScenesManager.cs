@@ -21,8 +21,23 @@ public class ScenesManager : MonoBehaviour
     // Player
     public float ShotInterval = 0.5f;
     public int PlayerLifeMax = 3;
-    public int ShotType = 0;
 
     // Bullet
     public float BulletDamage = 1.0f;
+
+    //Type
+    public enum BulletType
+    {
+        Ice,
+        Fire,
+        Thunder,
+        Wind
+    }
+
+    public BulletType BulletTypes = BulletType.Ice;
+
+    public float UpDamage_Ice = 1.0f;
+    public float UpDamage_Fire = 0.3f;
+    public float UpDamage_Thunder = 0.3f;
+    public float UpDamage_Wind = 1.0f;
 }

@@ -12,6 +12,7 @@ TagManager:
   - player
   - BUFF
   - banana
+  - Thunder
   layers:
   - Default
   - TransparentFX

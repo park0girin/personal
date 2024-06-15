@@ -43,8 +43,8 @@ public class Debug_Manager : MonoBehaviour
     public void Damage_Button()
     {
         // 데미지 버튼을 클릭할 때 데미지를 증가
-        GameManager.BulletDamage += (ScenesManager.Instance.BulletDamage);
-        DamageField.text = GameManager.BulletDamage.ToString("0.0");
+        GameManager.Damage += GameManager.UpDamage;
+        DamageField.text = GameManager.Damage.ToString("0.0");
     }
 
     public void MaxHP()

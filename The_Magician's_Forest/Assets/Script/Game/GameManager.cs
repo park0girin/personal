@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static ScenesManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -55,8 +56,32 @@ public class GameManager : MonoBehaviour
     public bool Gameing;
     public bool Debuging;
 
+    public BulletType BulletTypes;
+    public float UpDamage;
+    public float Damage;
+
     private void OnEnable()
     {
+        BulletTypes = ScenesManager.Instance.BulletTypes;
+        switch (BulletTypes)
+        {
+            case BulletType.Ice:
+                UpDamage = ScenesManager.Instance.UpDamage_Ice;
+                break;
+            case BulletType.Fire:
+                UpDamage = ScenesManager.Instance.UpDamage_Fire;
+                break;
+            case BulletType.Thunder:
+                UpDamage = ScenesManager.Instance.UpDamage_Thunder;
+                break;
+            case BulletType.Wind:
+                UpDamage = ScenesManager.Instance.UpDamage_Wind;
+                break;
+            default:
+                BulletTypes = BulletType.Ice;
+                UpDamage = ScenesManager.Instance.UpDamage_Ice;
+                break;
+        }
         MaxHP = ScenesManager.Instance.PlayerLifeMax;
         Reset();
     }
@@ -94,7 +119,7 @@ public class GameManager : MonoBehaviour
                 if (Level % 5 == 0)
                 {
                     //GameObject BOSS = pool.Get(Random.Range(4, 6));
-                    GameObject BOSS = pool.Get(4);
+                    GameObject BOSS = pool.Get(5);
                     BOSS.transform.position = new Vector2(0f, 7f);
                     BossBattle = true;
                     if (SpawnSpeed < 5) SpawnSpeed += 0.5f;
@@ -204,7 +229,8 @@ public class GameManager : MonoBehaviour
         DeactivateButton();
         Gameing = true;
         GameOver = false;
-        BulletDamage = ScenesManager.Instance.BulletDamage;
+        Damage = 1;
+        BulletDamage = Damage * ScenesManager.Instance.BulletDamage;
         BuffCount = 0;
         MobCount = 0;
         HpMultiplier = 1;

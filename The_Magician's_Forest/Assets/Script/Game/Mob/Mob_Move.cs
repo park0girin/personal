@@ -219,7 +219,7 @@ public class Mob_Move : MonoBehaviour
     {
         if (this.transform.position.y <= 5)
         {
-            if (mob == mobType.Green && collision.CompareTag("bullet"))
+            if (mob == mobType.Green && (collision.CompareTag("bullet") || collision.CompareTag("Thunder")))
             {
                 specialSkill = true;
             }
@@ -227,14 +227,21 @@ public class Mob_Move : MonoBehaviour
             {
                 specialSkill = true;
             }
-            if (mob == mobType.Blue && collision.CompareTag("bullet"))
+            if (mob == mobType.Blue && (collision.CompareTag("bullet") || collision.CompareTag("Thunder")))
             {
                 hp = 0;
             }
             if (collision.CompareTag("bullet"))
             {
                 collision.gameObject.SetActive(false);
-                if (!cannotBeHit && !(mob == mobType.BOSS && transform.position.y > 4))
+                if (!(mob == mobType.BOSS && transform.position.y > 4))
+                {
+                    hp -= GameManager.BulletDamage;
+                }
+            }
+            if (collision.CompareTag("Thunder"))
+            {
+                if (!(mob == mobType.BOSS && transform.position.y > 4))
                 {
                     hp -= GameManager.BulletDamage;
                 }

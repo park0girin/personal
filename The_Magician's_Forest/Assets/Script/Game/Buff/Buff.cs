@@ -6,7 +6,6 @@ public class Buff : MonoBehaviour
 {
     public GameManager GameManager;
     public BuffType Buff_name;
-    float UpDamage;
     public enum BuffType
     {
         Freeze,
@@ -17,7 +16,6 @@ public class Buff : MonoBehaviour
     private void OnEnable()
     {
         GameManager = FindObjectOfType<GameManager>();
-        UpDamage = ScenesManager.Instance.BulletDamage;
     }
     private void Update()
     {
@@ -61,7 +59,8 @@ public class Buff : MonoBehaviour
                     }
                     break;
                 case BuffType.DamageUp:
-                    GameManager.BulletDamage += UpDamage;
+                    GameManager.Damage += GameManager.UpDamage;
+                    GameManager.BulletDamage = ScenesManager.Instance.BulletDamage * GameManager.Damage;                     
                     break;
                 case BuffType.SkillGauge:
                     GameManager.SkillCount++;
