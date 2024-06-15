@@ -13,7 +13,6 @@ public class Player_shot : MonoBehaviour
     public GameObject pos;
     public float angle;
     float shotTime;
-    float skillTime;
     public bool skilling;
     int bulletsToShoot = 3; // ShotType이 0일 때 발사할 총알 개수
     public BulletType BulletTypes;
@@ -26,7 +25,6 @@ public class Player_shot : MonoBehaviour
 
     private void OnEnable()
     {
-        skillTime = 0;
         BulletTypes = ScenesManager.Instance.BulletTypes;
         switch (BulletTypes)
         {
@@ -190,17 +188,7 @@ public class Player_shot : MonoBehaviour
         }
         else if (BulletTypes == BulletType.Thunder)
         {
-            if (!skilling)
-            {
-                skillTime = 0;
-                GameObject Bullet = Instantiate(bulletobjs[4]);
-                skilling = true;
-            }
-            if (skilling)
-            {
-                skillTime += Time.deltaTime;
-                if (skillTime >= 0.1f) skilling = false;
-            }
+
         }
         else if (BulletTypes == BulletType.Wind)
         {

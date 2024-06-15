@@ -6,14 +6,24 @@ public class Thunder : MonoBehaviour
 {
     public GameObject plPos;
     public BoxCollider2D Box;
-    public bool Sk;
-    public float SkTime;
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.LogError("Animator가 할당되지 않았습니다!");
+        }
+    }
 
     public void OnEnable()
     {
         Box = GetComponent<BoxCollider2D>();
-        Sk = false;
-        SkTime = 0;
+        if (animator != null)
+        {
+            animator.SetBool("Skill", false);
+        }
         if (Box != null) Box.enabled = false;
         if (plPos == null)
         {
@@ -32,17 +42,6 @@ public class Thunder : MonoBehaviour
             Debug.LogError("plPos가 할당되지 않았습니다! 위치를 설정할 수 없습니다.");
             return;
         }
-        if (Sk)
-        {
-            Box.enabled = true;
-            SkTime += Time.deltaTime;
-            if (SkTime >= 0.05f)
-            {
-                Box.enabled = false;
-                Sk = false;
-                Debug.Log("ThunderSkil");
-            }
-        }
     }
     public void Thunder_True()
     {
@@ -54,11 +53,33 @@ public class Thunder : MonoBehaviour
     }
     public void Hide()
     {
+        if (animator != null)
+        {
+            animator.SetBool("Skill", false);
+        }
         this.gameObject.SetActive(false);
     }
     public void ThunderSkil()
     {
-        Sk = true;
-        SkTime = 0;
+        StartCoroutine(ThunderSkilCoroutine());
+    }
+
+    private IEnumerator ThunderSkilCoroutine()
+    {
+        // Thunder_True를 호출하여 콜라이더를 활성화합니다.
+        Thunder_True();
+
+        // 일정 시간 동안 대기합니다.
+        yield return new WaitForSeconds(0.005f);
+
+        // Thunder_False를 호출하여 콜라이더를 비활성화합니다.
+        Thunder_False();
+    }
+    public void Skill_bool()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("Skill", true);
+        }
     }
 }
