@@ -53,6 +53,12 @@ public class Debug_Manager : MonoBehaviour
         GameManager.HPGaugeBar.ChangeGaugeValue(GameManager.MaxHP);
     }
 
+    public void MaxSkill()
+    {
+        GameManager.SkillCount = GameManager.SkillCountMax;
+        GameManager.SkillGaugeBar.ChangeGaugeValue(GameManager.SkillCount);
+    }
+
     public void LVInput()
     {
         // LVInput 함수: LVField 값이 변경될 때 호출되는 함수

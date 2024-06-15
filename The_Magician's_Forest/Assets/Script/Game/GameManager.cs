@@ -36,14 +36,14 @@ public class GameManager : MonoBehaviour
     Dictionary<string, int> buffCountDict = new Dictionary<string, int>();
     public bool Freeze;
     public float FreezeSkillTime;
-    public float SkillCountMax;
+    public int SkillCountMax;
     public int SkillCount;
 
     // UI
     public float Level;
     public TextMeshProUGUI LV_text;
-    public TextMeshProUGUI UI_Text;
-    public TextMeshProUGUI Buff_Text;
+    //public TextMeshProUGUI UI_Text;
+    //public TextMeshProUGUI Buff_Text;
     public PlayerUI_con HPGaugeBar;
     public PlayerUI_con SkillGaugeBar;
     public Button myButton;
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
             DebugUI.SetActive(Debuging);
         }
 
-        UI_Text.text = ($"Life : {PlayerLife} / {ScenesManager.Instance.PlayerLifeMax}\nMob : {(Level % 5 == 0 ? 0 : ((Level % 5) - 1) * 10 + MobCount)} / 50");
+        //UI_Text.text = ($"Life : {PlayerLife} / {ScenesManager.Instance.PlayerLifeMax}\nMob : {(Level % 5 == 0 ? 0 : ((Level % 5) - 1) * 10 + MobCount)} / 50");
         if (GameOver)
         {
             Black.SetActive(true);
@@ -160,12 +160,14 @@ public class GameManager : MonoBehaviour
                                 }
                             }
 
+                            /*
                             Buff_Text.text = "Buff : \n";
                             foreach (var kvp in buffCountDict)
                             {
                                 string buffInfo = $"{kvp.Key} x{kvp.Value}\n";
                                 Buff_Text.text += buffInfo;
                             }
+                            */
                         }
 
                     }
@@ -241,7 +243,7 @@ public class GameManager : MonoBehaviour
         GamePauseUI.SetActive(false);
         buffsQueue.Clear();
         buffCountDict = new Dictionary<string, int>();
-        Buff_Text.text = ($"Buff : \n");
+        //Buff_Text.text = ($"Buff : \n");
         Time.timeScale = 1.0f;
     }
     public void Boom(Vector2 pos)

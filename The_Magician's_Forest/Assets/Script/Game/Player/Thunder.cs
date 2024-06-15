@@ -77,6 +77,7 @@ public class Thunder : MonoBehaviour
     }
     public void Skill_bool()
     {
+        Debug.Log("스킬활성화다거지같은것");
         if (animator != null)
         {
             animator.SetBool("Skill", true);
