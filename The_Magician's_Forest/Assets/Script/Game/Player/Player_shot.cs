@@ -41,7 +41,7 @@ public class Player_shot : MonoBehaviour
                 bulletobj = bulletobjs[1];
                 break;
             case BulletType.Thunder:
-                poolSize = 8;
+                poolSize = 1;
                 bulletsToShoot = 1;
                 ScenesManager.Instance.BulletDamage = 1.5f;
                 bulletobj = bulletobjs[2];
@@ -119,11 +119,16 @@ public class Player_shot : MonoBehaviour
         {
             if (!skilling)
             {
-                if (BulletTypes != BulletType.Fire) shotTime += Time.deltaTime;
+                if ((BulletTypes != BulletType.Fire) && (BulletTypes != BulletType.Thunder)) shotTime += Time.deltaTime;
                 else
                 {
-                    GameObject bullet = GetNextInactiveBullet(); // 비활성화된 총알 가져오기
-                    ShootBullet(bullet, 0);
+                    foreach (GameObject bullet in bulletPool)
+                    {
+                        if (!bullet.activeSelf)
+                        {
+                            bullet.SetActive(true);
+                        }
+                    }
                 }
                 if (shotTime >= ScenesManager.Instance.ShotInterval)
                 {
@@ -139,9 +144,12 @@ public class Player_shot : MonoBehaviour
                     }
                     else
                     {
-                        GameObject bullet = GetNextInactiveBullet(); // 비활성화된 총알 가져오기
-                        ShootBullet(bullet, 0);
-                        shotTime = 0;
+                        if (GetNextInactiveBullet() != null)
+                        {
+                            GameObject bullet = GetNextInactiveBullet(); // 비활성화된 총알 가져오기
+                            ShootBullet(bullet, 0);
+                            shotTime = 0;
+                        }
                     }
                 }
             }
@@ -150,12 +158,11 @@ public class Player_shot : MonoBehaviour
 
     public void SkillShot()
     {
-        // 모든 활성화된 총알을 비활성화
-        DeactivateAllBullets();
-
-
         if (BulletTypes == BulletType.Ice)
         {
+            // 모든 활성화된 총알을 비활성화
+            DeactivateAllBullets();
+
             // 첫 번째 총알의 시작 x 위치
             float startX = -2.5f;
             // 일정 간격 계산

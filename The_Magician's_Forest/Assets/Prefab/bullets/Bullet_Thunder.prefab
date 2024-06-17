@@ -196,8 +196,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plPos: {fileID: 0}
   Box: {fileID: 0}
+  animator: {fileID: 5462711236966433666}
+  animatorController: {fileID: 9100000, guid: 6c4a062258aad4241ab50212b13a1822, type: 2}
   Sk: 0
-  SkTime: 0
 --- !u!210 &-1889465098643140870
 SortingGroup:
   m_ObjectHideFlags: 0
