@@ -118,8 +118,8 @@ public class GameManager : MonoBehaviour
             {
                 if (Level % 5 == 0)
                 {
-                    //GameObject BOSS = pool.Get(Random.Range(4, 6));
-                    GameObject BOSS = pool.Get(5);
+                    GameObject BOSS = pool.Get(Random.Range(4, 6));
+                    //GameObject BOSS = pool.Get(5);
                     BOSS.transform.position = new Vector2(0f, 7f);
                     BossBattle = true;
                     if (SpawnSpeed < 5) SpawnSpeed += 0.5f;
